@@ -23,30 +23,31 @@ knitr::opts_chunk$set(echo = FALSE)
 - If interested in the latter, sign up for:
 
 + Noah Lehman's course, 
++ Tomas Aragon's book  (<https://bookdown.org/medepi/phds/>),
 + or read Hadly Wikham's book (<http://r4ds.had.co.nz/>).
 
-
-```{r reference, include=FALSE}
-# https://bookdown.org/medepi/phds/getting-started-with-r.html#what-is-rstudio
-
-# http://r4ds.had.co.nz/workflow-scripts.html
-
-```
 
 ## What is R?
 
 A free software that enables statistical computation, data analysis, and graphs. Built on this core are tools that allows users to integrate it with reports and interactive dashboarding on various platforms.
 
-<!--- 
-![picture of R](images/R.jpg)
--->
+
+<div align="center">
+<img src="../images/R.jpg" width=800 height=600>
+</div>
+
 ## What is RStudio?
 
 A powerful integrated development environment (IDE) for R. It facilitate coding, compling, debugging, and deploying. 
 
 <!---
-![picture of RStudio](images/rstudio.jpg)
+![picture of RStudio](../images/rstudio.jpg)
+
 -->
+
+<div align="center">
+<img src="../images/rstudio.jpg" width=800 height=600>
+</div>
 
 ## Basic Calculation
 
@@ -151,3 +152,8 @@ num_fac <- as.factor(num)
 
 ```
 
+## Concepts covered
+1. Overview of R and RStudio
+2. Data objects (essentials...more to be covered)
+3. Transform data object
+3. Functions

@@ -1,0 +1,10 @@
+---
+title: "Libraries and Loading Data"
+author: "Savet Hong"
+date: "March 2, 2018"
+output:
+  slidy_presentation:
+    incremental: true
+---
+
+
