@@ -1,0 +1,63 @@
+---
+title: "R Basics"
+author: "Savet Hong"
+date: "February 28, 2018"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Purpose of Workshop
+
+- Provide overview of basic concepts of R, how to integrate this into current workflow, as well as, tips on debugging.
+
+- There will be references to Excel and Stata.
+
+- This is not a course on statistics or data analysis.
+
+- If interested in the latter, sign up for Noah Lehman's course, or read Hadly Wikham's book<http://r4ds.had.co.nz/>.
+
+
+```{r reference, include=FALSE}
+# https://bookdown.org/medepi/phds/getting-started-with-r.html#what-is-rstudio
+
+# http://r4ds.had.co.nz/workflow-scripts.html
+
+```
+
+## What is R?
+
+A free software that enables statistical computation, data analysis, and graphs. Built on this core are tools that allows users to integrate it with reports and interactive dashboarding on various platforms.
+
+## What is RStudio?
+
+A powerful integrated development environment (IDE) for R. It facilitate coding, compling, debugging, and deploying. 
+
+## R Objects
+
+An object is a way of referencing data stored in the computer memory based on its data structure. Understanding the structure of data element is important as there are rules around what can and cannot be done with certain structure.
+
+
+```{r singN, echo = TRUE}
+3
+```
+
+```{r, echo=TRUE}
+
+a <- 3
+a
+```
+
+## Is there an equivalent in Excel or Stata?
+
+
+
+## What is the structure of a?
+
+```{r modeN, echo=TRUE}
+mode(3)
+```
+
+## What is the structure in Excel or Stata?
