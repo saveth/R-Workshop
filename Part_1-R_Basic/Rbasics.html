@@ -59,37 +59,127 @@ Savet Hong
 </div>
 <div id="purpose-of-workshop" class="slide section level2">
 <h2>Purpose of Workshop</h2>
-<ul>
+<ul class="incremental">
 <li><p>Provide overview of basic concepts of R, how to integrate this into current workflow, as well as, tips on debugging.</p></li>
 <li><p>There will be references to Excel and Stata.</p></li>
 <li><p>This is not a course on statistics or data analysis.</p></li>
-<li><p>If interested in the latter, sign up for Noah Lehman’s course, or read Hadly Wikham’s book<a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>.</p></li>
+<li><p>If interested in the latter, sign up for:</p></li>
+<li>Noah Lehman’s course,</li>
+<li><p>or read Hadly Wikham’s book (<a href="http://r4ds.had.co.nz/" class="uri">http://r4ds.had.co.nz/</a>).</p></li>
 </ul>
 </div>
 <div id="what-is-r" class="slide section level2">
 <h2>What is R?</h2>
 <p>A free software that enables statistical computation, data analysis, and graphs. Built on this core are tools that allows users to integrate it with reports and interactive dashboarding on various platforms.</p>
+<!--- 
+![picture of R](images/R.jpg)
+-->
 </div>
 <div id="what-is-rstudio" class="slide section level2">
 <h2>What is RStudio?</h2>
 <p>A powerful integrated development environment (IDE) for R. It facilitate coding, compling, debugging, and deploying.</p>
+<!---
+![picture of RStudio](images/rstudio.jpg)
+-->
+</div>
+<div id="basic-calculation" class="slide section level2">
+<h2>Basic Calculation</h2>
+<p>What is 3*3?</p>
+<ul class="incremental">
+<li>Excel</li>
+<li>Stata</li>
+<li>R</li>
+</ul>
+</div>
+<div id="how-do-you-print-coding-rocks" class="slide section level2">
+<h2>How do you print “Coding Rocks!”?</h2>
+<ul class="incremental">
+<li>Excel</li>
+<li>Stata</li>
+<li>R</li>
+</ul>
 </div>
 <div id="r-objects" class="slide section level2">
 <h2>R Objects</h2>
 <p>An object is a way of referencing data stored in the computer memory based on its data structure. Understanding the structure of data element is important as there are rules around what can and cannot be done with certain structure.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span></code></pre></div>
-<pre><code>## [1] 3</code></pre>
-<pre><code>## [1] 3</code></pre>
+<ul class="incremental">
+<li><p>Assign 3 to an object called “a”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">3</span></code></pre></div></li>
+<li><p>Call the object “a”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a</code></pre></div>
+<pre><code>## [1] 3</code></pre></li>
+<li><p>What is a*3?</p></li>
+</ul>
 </div>
-<div id="is-there-an-equivalent-in-excel" class="slide section level2">
-<h2>Is there an equivalent in Excel?</h2>
+<div id="is-there-an-equivalent-in-excel-or-stata" class="slide section level2">
+<h2>Is there an equivalent in Excel or Stata?</h2>
 </div>
 <div id="what-is-the-structure-of-a" class="slide section level2">
 <h2>What is the structure of a?</h2>
-<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p>(What is the formatting of the information saved in the object?)</p>
+<ul class="incremental">
+<li>Excel</li>
+<li>Stata</li>
+</ul>
 </div>
-<div id="what-is-the-structure-in-excel" class="slide section level2">
-<h2>What is the structure in Excel?</h2>
+<div id="data-mode-in-r" class="slide section level2">
+<h2>Data Mode in R</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mode</span>(<span class="dv">3</span>)</code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mode</span>(a)</code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<ul class="incremental">
+<li><p>Note: calling and using a function requires “()”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(<span class="dv">3</span>)</code></pre></div>
+<pre><code>##  num 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(a)</code></pre></div>
+<pre><code>##  num 3</code></pre></li>
+</ul>
+</div>
+<div id="coding-rocks" class="slide section level2">
+<h2>“Coding Rocks!”</h2>
+<ul class="incremental">
+<li>what is the mode?</li>
+<li>save it to an object</li>
+</ul>
+</div>
+<div id="naming-conventions" class="slide section level2">
+<h2>Naming Conventions</h2>
+<ol class="incremental" style="list-style-type: decimal">
+<li>R is case sensitive</li>
+<li>Can be letters and numbers, BUT must start with a letter</li>
+<li>accepts “_&quot; and “.” in object name</li>
+<li>names should be descriptive</li>
+</ol>
+</div>
+<div id="multiple-elements-in-a-vector-object" class="slide section level2">
+<h2>Multiple elements in a vector object</h2>
+<ul class="incremental">
+<li><p>Create the object</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;one&quot;</span>,<span class="st">&quot;2&quot;</span>,<span class="st">&quot;three&quot;</span>), <span class="dt">times =</span> <span class="dv">5</span>)</code></pre></div></li>
+<li>How many function was used to create “num”?</li>
+<li>What is the mode of “num”?</li>
+<li>How would you change the mode of “num” in
+<ul class="incremental">
+<li>Excel?</li>
+<li>Stata?</li>
+<li>R?</li>
+</ul></li>
+</ul>
+</div>
+<div id="change-the-mode-of-an-object" class="slide section level2">
+<h2>Change the mode of an object</h2>
+<ul class="incremental">
+<li><p>What is a factor?</p></li>
+<li><p>Convert “num” into a factor</p></li>
+<li><p>solution</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">factor</span>(num)</code></pre></div>
+<pre><code>##  [1] one   2     three one   2     three one   2     three one   2    
+## [12] three one   2     three
+## Levels: 2 one three</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">num_fac &lt;-<span class="st"> </span><span class="kw">factor</span>(num)    
+num_fac &lt;-<span class="st"> </span><span class="kw">as.factor</span>(num)</code></pre></div></li>
+</ul>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->
