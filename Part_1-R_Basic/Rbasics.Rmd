@@ -1,7 +1,7 @@
 ---
 title: "R Basics"
 author: "Savet Hong"
-date: "February 28, 2018"
+date: "March 6, 2018"
 output:
   slidy_presentation:
     incremental: true
@@ -14,22 +14,32 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Purpose of Workshop
 
-- Provide overview of basic concepts of R, how to integrate this into current workflow, as well as, tips on debugging.
+- Series
 
-- There will be references to Excel and Stata.
+    + Provide overview of basic concepts of R, how to integrate this into current workflow, as well as, tips on debugging.
 
-- This is not a course on statistics or data analysis.
+- Today's session
 
-- If interested in the latter, sign up for:
+    + Look and feel of R and RStudio (orientation for Noah's course)
 
-+ Noah Lehman's course, 
-+ Tomas Aragon's book  (<https://bookdown.org/medepi/phds/>),
-+ or read Hadly Wikham's book (<http://r4ds.had.co.nz/>).
+    + Essential concepts of R objects
+
+    + There will be references to Excel and Stata.
+
+    + This is not a course on statistics or data analysis.
+
+
+## Resources
+
+- Noah Lehman's internal Data Science course
+- Tomas Aragon's book  (<https://bookdown.org/medepi/phds/>)
+- Hadly Wikham's book (<http://r4ds.had.co.nz/>)
+- MOOC (Coursera, EdX, Codecademy, DataCamp)
 
 
 ## What is R?
 
-A free software that enables statistical computation, data analysis, and graphs. Built on this core are tools that allows users to integrate it with reports and interactive dashboarding on various platforms.
+A free software that enables statistical computation, data analysis, and graphs. Built on these core functions are tools that allow users to enhance the features and integrate it with reports and interactive dashboarding on various platforms.
 
 
 <div align="center">
@@ -57,7 +67,7 @@ What is 3*3?
 - Stata
 - R
 
-## How do you print "Coding Rocks!"? 
+## How do you display "Coding Rocks!"? 
 
 - Excel
 - Stata
@@ -156,4 +166,24 @@ num_fac <- as.factor(num)
 1. Overview of R and RStudio
 2. Data objects (essentials...more to be covered)
 3. Transform data object
-3. Functions
+4. Functions
+
+## Exercises
+
+- Create object containing a single value
+
+- Create a numerical vector
+
+- Perform arithmatic calculation using these two objects
+    + What do you observe?
+    
+- Create an 2x5 matrix object
+
+- Perform various arithmatic calculations using different combination of the three objects
+    + What do you observe?
+
+- Create a factor vector
+
+- Change the value of one of the level
+    + What happened?
+    + How did you achieve this?
