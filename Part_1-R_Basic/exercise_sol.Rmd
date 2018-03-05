@@ -1,0 +1,58 @@
+---
+title: "Part 1: Exercises Solution"
+author: "Savet Hong"
+date: "March 6, 2018"
+output:
+  slidy_presentation:
+  incremental: true
+---
+  
+  
+## Part 1: Vector Math
+  
+- Create object containing a single value
+
+- Create a numerical vector
+
+- Perform arithmatic calculation using these two objects
+    + What do you observe?
+
+```{r vec_math, echo=TRUE}
+scale <- 3
+vec <- c(1:5)
+
+scale*vec
+vec-scale
+
+```  
+
+## Part 2: Matrix Math
+
+- Create an 2x5 matrix object
+
+- Perform various arithmatic calculations using different combination of the three objects
+    + What do you observe?
+
+```{r matrix, echo=TRUE} 
+mat <- matrix(1:10, 2, 5)
+  
+scale*mat
+vec*mat
+mat - vec
+  
+``` 
+ 
+ 
+## Part 3: Factors
+
+- Create a factor vector
+
+- Change the value of one of the level
+    + What happened?
+    + How did you achieve this?
+    
+```{r factors, echo=TRUE}
+nums_fact <- factor(rep(c("one","two","three"),5))
+
+```
+  

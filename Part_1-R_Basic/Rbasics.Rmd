@@ -166,7 +166,7 @@ num_fac <- as.factor(num)
 1. Overview of R and RStudio
 2. Data objects (essentials...more to be covered)
 3. Transform data object
-4. Functions
+4. Using built-in functions
 
 ## Exercises
 
