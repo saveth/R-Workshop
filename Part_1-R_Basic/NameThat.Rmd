@@ -1,0 +1,43 @@
+---
+title: "Name that..."
+author: "Savet Hong"
+date: "March 16, 2018"
+output:
+  slidy_presentation:
+  incremental: true
+---
+  
+  
+## Symbols
+
+Identify the symbols in the image and what they mean.
+
+
+##  
+
+![](../images/carrot.jpg)
+
+##
+
+![](../images/plus.jpg)
+
+
+## What goes on the left? What goes on the right?
+
+<div align="center">
+<img src="../images/larrow.jpg" width=800 height=600>
+</div>
+
+
+##What goes on the left? What goes on the right?
+<div align="center">
+<img src="../images/rarrow.jpg" width=800 height=600>
+</div>
+
+
+##  
+![](../images/warning.jpg)
+<!--
+##  
+![](../images/error.jpg)
+-->
