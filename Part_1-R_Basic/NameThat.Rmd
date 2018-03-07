@@ -37,7 +37,7 @@ Identify the symbols in the image and what they mean.
 
 ##  
 ![](../images/warning.jpg)
-<!--
+
 ##  
 ![](../images/error.jpg)
--->
+

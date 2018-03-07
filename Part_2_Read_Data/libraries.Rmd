@@ -8,3 +8,48 @@ output:
 ---
 
 
+## Review Objects
+
+- Scalar
+- Vector
+- Matrix
+-Array
+- List
+
+## Visualize Objects
+
+
+
+##  Scalar as a dot/coin
+![](../images/scalar.jpg)
+
+##  Vector as a line/bar
+![](../images/vector.jpg)
+
+##  Matrix as a square/paper
+![](../images/matrix.jpg)
+
+##  Array as a cube/box
+![](../images/array.jpg)
+
+##  List as a container/chest
+![](../images/list.jpg)
+
+## Indexing
+
+
+```{r index, echo=TRUE}
+vec <- 1:5
+mat <- matrix(1:6,4,6)
+
+vec[5]
+```
+
+- Index the value for the element in the 3rd row and 4th column of mat.
+
+
+## Libraries
+
+## Import Files
+
+## Export Files
