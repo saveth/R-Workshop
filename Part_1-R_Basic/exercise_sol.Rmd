@@ -1,7 +1,7 @@
 ---
 title: "Part 1: Exercises Solution"
 author: "Savet Hong"
-date: "March 6, 2018"
+date: "March 16, 2018"
 output:
   slidy_presentation:
   incremental: true
@@ -41,6 +41,17 @@ vec*mat
 mat - vec
   
 ``` 
+
+## Arithmatic for Objects of Same Dimension/Size
+
+```{r mat-mat, echo=TRUE}
+mat2 <- matrix(11:20, 2,5)
+mat2
+mat
+
+mat2 - mat
+
+```
  
  
 ## Part 3: Factors
@@ -54,5 +65,32 @@ mat - vec
 ```{r factors, echo=TRUE}
 nums_fact <- factor(rep(c("one","two","three"),5))
 
+levels(nums_fact)
+
 ```
-  
+
+```{r eisit_level, echo=TRUE}
+
+nums_fact[nums_fact=="one"] <- "two" 
+
+```
+
+## Add non-exisitng factor level
+
+```{r non-exist-level, echo=TRUE}
+
+levels(nums_fact) <- c(levels(nums_fact), "four")
+
+nums_fact[nums_fact=="three"] <- "four" 
+
+levels(nums_fact)
+
+```  
+
+```{r refactor, echo=TRUE}
+
+nums_fact <- factor(nums_fact)
+levels(nums_fact)
+
+```
+
