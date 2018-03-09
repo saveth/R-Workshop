@@ -21,6 +21,10 @@ Identify the symbols in the image and what they mean.
 
 ![](../images/plus.jpg)
 
+##
+
+![](../images/index.jpg)
+
 
 ## What goes on the left? What goes on the right?
 
