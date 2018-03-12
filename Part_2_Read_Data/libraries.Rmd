@@ -13,10 +13,11 @@ output:
 - Scalar
 - Vector
 - Matrix
--Array
+- Array
 - List
 
-## Visualize Objects
+
+# Visualize Objects
 
 
 
@@ -39,17 +40,89 @@ output:
 
 
 ```{r index, echo=TRUE}
-vec <- 1:5
 mat <- matrix(1:6,4,6)
+arr <- array(1:40, dim = c(4,5,2))
 
-vec[5]
+mat[3,4]
 ```
 
-- Index the value for the element in the 3rd row and 4th column of mat.
+- What is the index for arr containing the value 36?
+- arr[4,4,2]
+
+# Library
 
 
-## Libraries
+## Library packages
+
+```{r base, include=FALSE}
+
+library(help = "base")
+
+```
+
+- Packages contains funtions and data not included in the base package
+
+- Programers develop packages for specific disciplines or simplifying their coding process
+
+- Beaware that a function in one package can mask a function in another package
+
+    ```{r libraries, echo=TRUE}
+library(dplyr)
+
+```
 
 ## Import Files
 
+- What type of data files do we normally work with?
+    + Excel
+    + Stata
+    
+- Libraries for Excel
+    + library(utils)*
+    + library(readr)
+    + library(readxl)
+    + library(openxlsx)
+
+- Libraries for Stata
+    + library(foreign)
+    + library(readstata13)
+
+- Other packages exist to read other data format    
+
+    *Do not need to load this package.
+
+## What functions are available in the foreign package?
+
+![](../images/foreign.jpg)
+
+
+## Read file examples
+
+```{r readin, echo=TRUE}
+
+
+```
+
 ## Export Files
+
+
+## Concepts covered
+1. Conceptual framework of data objects
+2. Indexing
+3. Library packages
+4. Read (import) in data
+5. Write (export) out data
+
+## Exercises
+
+- Read in the OBJ.RDS data file
+    + Extract the first object in the list and save it to an object
+    + Extract the second object in the list and save it to a different object
+    + What are now the different types of data objects that exist in your Evironment?
+
+- Imagine the first object came from one data source and the second data object came from a second data source, how would you go about validating the data?
+    + Did the two data source collect the same information?
+    + Are there any discrepancies?
+    
+- If the first data source is considered the most valid data, modify and update the second data source if any discrepancies exist.    
+
