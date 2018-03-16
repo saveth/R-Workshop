@@ -26,6 +26,13 @@ vec-scale
 
 ```  
 
+## Key Concept
+
+- Atomic - vector calculation is performed for each element in the vector 
+    + imagine the atomic value
+        + is calculated on one element at a time across the vector 
+        + or it's repeating itself equal to the length of the vector and calculation is then done across the two object 
+
 ## Part 2: Matrix Math
 
 - Create an 2x5 matrix object
@@ -42,6 +49,11 @@ mat - vec
   
 ``` 
 
+## Key Concepts
+
+- Atomic - vector calculation is performed for each element in the vector
+- Vector and Matrix calculation is done through repeating values of vector elements equal to the size of the matrix elements
+
 ## Arithmatic for Objects of Same Dimension/Size
 
 ```{r mat-mat, echo=TRUE}
@@ -52,6 +64,17 @@ mat
 mat2 - mat
 
 ```
+
+## Key Concepts
+
+- Matrix on Matrix calculation (both of equal size) will perform element by element computation
+- Matrix on Matrix calculation (not of equal size) will not perform any calculation
+
+## Key Concepts
+
+- Atomic, Vector, and Matrix objects can only contain one mode: numeric, character, and logic
+    + e.g., every single element of a matrix must be one of the listed mode above
+    + it cannot have one column numeric, another column with character, and another with logic
  
  
 ## Part 3: Factors
@@ -93,4 +116,9 @@ nums_fact <- factor(nums_fact)
 levels(nums_fact)
 
 ```
+
+## Key Concepts
+
+- Factor elements can be changed to another value if a level value already exist
+- A level needs to be added to the existing set of levels in a factor before a current level can be modified
 
