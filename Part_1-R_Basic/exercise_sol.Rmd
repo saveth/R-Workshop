@@ -10,7 +10,7 @@ output:
   
 ## Part 1: Vector Math
   
-- Create object containing a single value
+- Create object containing a single numerical value
 
 - Create a numerical vector
 
