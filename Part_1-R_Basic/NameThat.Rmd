@@ -45,3 +45,6 @@ Identify the symbols in the image and what they mean.
 ##  
 ![](../images/error.jpg)
 
+##  
+![](../images/comment.jpg)
+
