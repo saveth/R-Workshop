@@ -113,7 +113,7 @@ mat[<span class="dv">3</span>,<span class="dv">4</span>]</code></pre></div>
 <ul class="incremental">
 <li><p>Packages contains funtions and data not included in the base package</p></li>
 <li><p>Programers develop packages for specific disciplines or simplifying their coding process</p></li>
-<li><p>Beaware that a function in one package can mask a function in another package</p>
+<li><p>Beware that a function in one package can mask a function in another package</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
 <pre><code>## 
 ## Attaching package: 'dplyr'</code></pre>
@@ -123,6 +123,21 @@ mat[<span class="dv">3</span>,<span class="dv">4</span>]</code></pre></div>
 <pre><code>## The following objects are masked from 'package:base':
 ## 
 ##     intersect, setdiff, setequal, union</code></pre></li>
+</ul>
+</div><div id="tidyverse" class="slide section level2">
+<h2>Tidyverse</h2>
+<p>What is tidyverse?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+<pre><code>## Loading tidyverse: ggplot2
+## Loading tidyverse: tibble
+## Loading tidyverse: tidyr
+## Loading tidyverse: readr
+## Loading tidyverse: purrr</code></pre>
+<pre><code>## Conflicts with tidy packages ----------------------------------------------</code></pre>
+<pre><code>## filter(): dplyr, stats
+## lag():    dplyr, stats</code></pre>
+<ul class="incremental">
+<li>Collectiion of packages for data analysis and visualization where the packages share similar structure, concepts, and coding logic.</li>
 </ul>
 </div><div id="import-files" class="slide section level2">
 <h2>Import Files</h2>
@@ -138,14 +153,14 @@ mat[<span class="dv">3</span>,<span class="dv">4</span>]</code></pre></div>
 <li>library(readr)</li>
 <li>library(readxl)</li>
 <li>library(openxlsx)</li>
-</ul></li>
+</ul>
+<p>*Do not need to load this package.</p></li>
 <li>Libraries for Stata
 <ul class="incremental">
 <li>library(foreign)</li>
 <li>library(readstata13)</li>
 </ul></li>
-<li><p>Other packages exist to read other data format</p>
-<p>*Do not need to load this package.</p></li>
+<li><p>Other packages exist to read other data format</p></li>
 </ul>
 </div><div id="what-functions-are-available-in-the-foreign-package" class="slide section level2">
 <h2>What functions are available in the foreign package?</h2>

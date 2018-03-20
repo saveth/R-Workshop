@@ -64,12 +64,23 @@ library(help = "base")
 
 - Programers develop packages for specific disciplines or simplifying their coding process
 
-- Beaware that a function in one package can mask a function in another package
+- Beware that a function in one package can mask a function in another package
 
     ```{r libraries, echo=TRUE}
 library(dplyr)
 
 ```
+
+## Tidyverse
+
+What is tidyverse?
+
+```{r tidyverse, echo=TRUE}
+library(tidyverse)
+
+```
+
+- Collection of packages for data analysis and visualization where the packages share similar structure, concepts, and coding logic.
 
 ## Import Files
 
@@ -83,27 +94,41 @@ library(dplyr)
     + library(readxl)
     + library(openxlsx)
 
+    *Do not need to load this package.
+    
 - Libraries for Stata
     + library(foreign)
     + library(readstata13)
 
 - Other packages exist to read other data format    
 
-    *Do not need to load this package.
+
 
 ## What functions are available in the foreign package?
 
 ![](../images/foreign.jpg)
+
+## File Pathways
+
+- Use the full pathway for the data file
+    + file.choose() is a shortcut to generating the file path
+
+- Change the working directory
+    + getwd() identify the current working directory
+    + setwd() changes the working directory pathway
 
 
 ## Read file examples
 
 ```{r readin, echo=TRUE}
 
+drinks <- read.csv("../data/drinks.csv", header = TRUE)
 
 ```
 
 ## Export Files
+
+
 
 
 ## Concepts covered
