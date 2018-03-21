@@ -1,5 +1,5 @@
 ---
-title: "Libraries and Loading Data"
+title: "Review, Libraries and Loading Data"
 author: "Savet Hong"
 date: "March 2, 2018"
 output:
@@ -82,6 +82,8 @@ library(tidyverse)
 
 - Collection of packages for data analysis and visualization where the packages share similar structure, concepts, and coding logic.
 
+# Getting Data Into and Out of R
+
 ## Import Files
 
 - What type of data files do we normally work with?
@@ -110,26 +112,48 @@ library(tidyverse)
 
 ## File Pathways
 
-- Use the full pathway for the data file
-    + file.choose() is a shortcut to generating the file path
-
 - Change the working directory
     + getwd() identify the current working directory
     + setwd() changes the working directory pathway
-
+    
+- Use the full pathway for the data file
+    + file.choose() is a shortcut to generating the full file path
+    + shortened pathway can be used if within subworking directory
+    + file name only if in the same working directory
+    + html pathway if online
+    
 
 ## Read file examples
 
-```{r readin, echo=TRUE}
+- Read in the "drinks" data file
+
+- Example: csv file within subworking directory
+
+    ```{r readin, echo=TRUE}
 
 drinks <- read.csv("../data/drinks.csv", header = TRUE)
 
 ```
 
+- Example: excel file within subworking directory
+
+    ```{r readinexcel, echo=TRUE}
+library(readxl)
+drinks <- read_excel("../data/drinks_USbirths.xlsx", sheet = "drinks")
+```
+
 ## Export Files
 
+- Example: stata file in different directory
 
+    ```{r, writeSTATA, echo = TRUE}
+library(foreign)
+write.dta(drinks,"C:/Users/SHong/Desktop/drinks.dta")
+```
 
+- 
+    + specify the R object to be exported
+    + specify the file format that in export
 
 ## Concepts covered
 1. Conceptual framework of data objects
@@ -140,14 +164,13 @@ drinks <- read.csv("../data/drinks.csv", header = TRUE)
 
 ## Exercises
 
-- Read in the OBJ.RDS data file
-    + Extract the first object in the list and save it to an object
-    + Extract the second object in the list and save it to a different object
-    + What are now the different types of data objects that exist in your Evironment?
-
-- Imagine the first object came from one data source and the second data object came from a second data source, how would you go about validating the data?
-    + Did the two data source collect the same information?
-    + Are there any discrepancies?
+- Read in the data file:
+    + drinks, or
+    + US Births
     
-- If the first data source is considered the most valid data, modify and update the second data source if any discrepancies exist.    
+- Describe the data
+    + Some commands to consider.... str, summary, colnames, rownames, length
 
+- Export the data
+    + in any file format of your choice
+    + must be in a different subdirectory or directory
