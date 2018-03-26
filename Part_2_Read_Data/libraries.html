@@ -107,9 +107,76 @@ mat[<span class="dv">3</span>,<span class="dv">4</span>]</code></pre></div>
 <li>What is the index for arr containing the value 36?</li>
 <li>arr[4,4,2]</li>
 </ul>
+</div><div id="working-with-list" class="slide section level2">
+<h2>Working with List</h2>
+<ul class="incremental">
+<li><p>Load Homework 1 Assignment into environment as list</p></li>
+<li><p>What does it look like?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(hw1_dat)</code></pre></div>
+<pre><code>## List of 5
+##  $ mat      : int [1:2, 1:5] 1 2 3 4 5 6 7 8 9 10
+##  $ mat2     : int [1:2, 1:5] 11 12 13 14 15 16 17 18 19 20
+##  $ nums_fact: Factor w/ 2 levels &quot;two&quot;,&quot;four&quot;: 1 1 2 1 1 2 1 1 2 1 ...
+##  $ scale    : num 3
+##  $ vec      : int [1:5] 1 2 3 4 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hw1_dat</code></pre></div>
+<pre><code>## $mat
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    3    5    7    9
+## [2,]    2    4    6    8   10
+## 
+## $mat2
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]   11   13   15   17   19
+## [2,]   12   14   16   18   20
+## 
+## $nums_fact
+##  [1] two  two  four two  two  four two  two  four two  two  four two  two 
+## [15] four
+## Levels: two four
+## 
+## $scale
+## [1] 3
+## 
+## $vec
+## [1] 1 2 3 4 5</code></pre></li>
+</ul>
+</div><div id="extract-objects-from-list" class="slide section level2">
+<h2>Extract Objects from list</h2>
+<ul class="incremental">
+<li><p>Get the first object in hw1_dat</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hw1_dat[<span class="dv">1</span>]</code></pre></div>
+<pre><code>## $mat
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    3    5    7    9
+## [2,]    2    4    6    8   10</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hw1_dat[[<span class="dv">1</span>]]</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    3    5    7    9
+## [2,]    2    4    6    8   10</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hw1_dat<span class="op">$</span>mat</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    3    5    7    9
+## [2,]    2    4    6    8   10</code></pre></li>
+</ul>
+</div><div id="section" class="slide section level2">
+<h2></h2>
+<ul class="incremental">
+<li><p>Get the element in the 2nd row and 3rd column from the first object in hw1_dat</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hw1_dat<span class="op">$</span>mat[<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hw1_dat[[<span class="dv">1</span>]][<span class="dv">2</span>,<span class="dv">3</span>]</code></pre></div>
+<pre><code>## [1] 6</code></pre></li>
+</ul>
 </div>
 <div id="library" class="titleslide slide section level1"><h1>Library</h1></div><div id="library-packages" class="slide section level2">
 <h2>Library packages</h2>
+<ul class="incremental">
+<li><p>What is include in the base package?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="dt">help =</span> <span class="st">&quot;base&quot;</span>)</code></pre></div></li>
+</ul>
+</div><div id="other-library-packages" class="slide section level2">
+<h2>Other Library packages</h2>
 <ul class="incremental">
 <li><p>Packages contains funtions and data not included in the base package</p></li>
 <li><p>Programers develop packages for specific disciplines or simplifying their coding process</p></li>
@@ -176,12 +243,14 @@ mat[<span class="dv">3</span>,<span class="dv">4</span>]</code></pre></div>
 <ul class="incremental">
 <li>getwd() identify the current working directory</li>
 <li>setwd() changes the working directory pathway</li>
+<li>NOTE: R use the forward slash (“/”) not the backward slash (“\”) for file pathway</li>
+<li>The “\” is used to escape R special character</li>
 </ul></li>
 <li>Use the full pathway for the data file
 <ul class="incremental">
 <li>file.choose() is a shortcut to generating the full file path</li>
 <li>shortened pathway can be used if within subworking directory</li>
-<li>file name itself if in the same working directory</li>
+<li>file name only if in the same working directory</li>
 <li>html pathway if online</li>
 </ul></li>
 </ul>
@@ -198,12 +267,14 @@ drinks &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span cl
 </div><div id="export-files" class="slide section level2">
 <h2>Export Files</h2>
 <ul class="incremental">
-<li>Example: stata file in different directory</li>
-</ul>
+<li><p>Example: stata file in different directory</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(foreign)
-<span class="kw">write.dta</span>(drinks,<span class="st">&quot;C:/Users/SHong/Desktop/drinks.dta&quot;</span>)</code></pre></div>
-<pre><code>+ specify the R object to be exported
-+ specify the file format that in export</code></pre>
+<span class="kw">write.dta</span>(drinks,<span class="st">&quot;C:/Users/SHong/Desktop/drinks.dta&quot;</span>)</code></pre></div></li>
+<li><ul class="incremental">
+<li>specify the R object to be exported</li>
+<li>specify the file format in the name of the file pathway</li>
+</ul></li>
+</ul>
 </div><div id="concepts-covered" class="slide section level2">
 <h2>Concepts covered</h2>
 <ol class="incremental" style="list-style-type: decimal">
@@ -213,8 +284,8 @@ drinks &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span cl
 <li>Read (import) in data</li>
 <li>Write (export) out data</li>
 </ol>
-</div><div id="exercises" class="slide section level2">
-<h2>Exercises</h2>
+</div><div id="exercises-coder" class="slide section level2">
+<h2>Exercises : Coder</h2>
 <ul class="incremental">
 <li>Read in the data file:
 <ul class="incremental">
@@ -230,6 +301,22 @@ drinks &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span cl
 <li>in any file format of your choice</li>
 <li>must be in a different subdirectory or directory</li>
 </ul></li>
+</ul>
+</div><div id="exercises-reviewer" class="slide section level2">
+<h2>Exercises : Reviewer</h2>
+<ul class="incremental">
+<li>Run the code given to you
+<ul class="incremental">
+<li>What did you learn from the other person’s code?</li>
+<li>Were you able to perfom any trouble shooting?</li>
+<li>What challenges did you experience in reading/running the other person’s code?</li>
+</ul></li>
+</ul>
+</div><div id="exercises-bonus" class="slide section level2">
+<h2>Exercises : Bonus</h2>
+<ul class="incremental">
+<li>Rerun your code for Homework 1</li>
+<li>Save objects in your environment as a list</li>
 </ul>
 </div>
 

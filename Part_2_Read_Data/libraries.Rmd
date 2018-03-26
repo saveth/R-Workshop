@@ -49,16 +49,71 @@ mat[3,4]
 - What is the index for arr containing the value 36?
 - arr[4,4,2]
 
+## Working with List
+
+- Load Homework 1 Assignment into environment as list
+
+- What does it look like?
+
+```{r list, echo=FALSE, include=FALSE}
+# Run exercise_sol.Rmd file for Homework 1 and save the object in the datafile
+# obj <- ls()
+# hw1_dat <- lapply(obj, function(x) get(x))
+# names(hw1_dat) <- obj
+# 
+# saveRDS(hw1_dat,"../data/hw1_dat.rds")
+```
+
+```{r list_read, echo=FALSE, include=TRUE}
+hw1_dat <- readRDS("../data/hw1_dat.rds")
+
+```
+
+    ```{r list_str, echo=TRUE}
+str(hw1_dat)
+
+```
+
+    ```{r list_obj, echo=TRUE}
+hw1_dat
+
+```
+
+## Extract Objects from list
+
+- Get the first object in hw1_dat
+
+    ```{r list_bin1, echo=TRUE}
+hw1_dat[1]
+hw1_dat[[1]]
+hw1_dat$mat
+
+```
+
+## 
+
+- Get the element in the 2nd row and 3rd column from the first object in hw1_dat
+
+    ```{r list_binElement, echo=TRUE}
+hw1_dat$mat[2,3]
+hw1_dat[[1]][2,3]
+    
+```
+
 # Library
 
 
 ## Library packages
 
-```{r base, include=FALSE}
+- What is include in the base package?
+
+    ```{r base, echo=TRUE}
 
 library(help = "base")
 
 ```
+
+## Other Library packages
 
 - Packages contains funtions and data not included in the base package
 
@@ -115,6 +170,8 @@ library(tidyverse)
 - Change the working directory
     + getwd() identify the current working directory
     + setwd() changes the working directory pathway
+    + NOTE: R  use the forward slash ("/") not the backward slash ("\\") for file pathway
+    +   The "\\" is used to escape R special character
     
 - Use the full pathway for the data file
     + file.choose() is a shortcut to generating the full file path
@@ -153,7 +210,7 @@ write.dta(drinks,"C:/Users/SHong/Desktop/drinks.dta")
 
 - 
     + specify the R object to be exported
-    + specify the file format that in export
+    + specify the file format in the name of the file pathway
 
 ## Concepts covered
 1. Conceptual framework of data objects
@@ -162,7 +219,7 @@ write.dta(drinks,"C:/Users/SHong/Desktop/drinks.dta")
 4. Read (import) in data
 5. Write (export) out data
 
-## Exercises
+## Exercises : Coder
 
 - Read in the data file:
     + drinks, or
@@ -174,3 +231,15 @@ write.dta(drinks,"C:/Users/SHong/Desktop/drinks.dta")
 - Export the data
     + in any file format of your choice
     + must be in a different subdirectory or directory
+    
+## Exercises : Reviewer
+
+- Run the code given to you
+    + What did you learn from the other person's code?
+    + Were you able to perfom any trouble shooting?
+    + What challenges did you experience in reading/running the other person's code?
+    
+## Exercises : Bonus
+
+- Rerun your code for Homework 1
+- Save objects in your environment as a list
