@@ -1,7 +1,7 @@
 ---
 title: "Review, Libraries and Loading Data"
 author: "Savet Hong"
-date: "March 2, 2018"
+date: "March 27, 2018"
 output:
   slidy_presentation:
     incremental: true
@@ -10,7 +10,7 @@ output:
 
 ## Review Objects
 
-- Scalar
+- Atomic
 - Vector
 - Matrix
 - Array
@@ -21,7 +21,7 @@ output:
 
 
 
-##  Scalar as a dot/coin
+##  Atomic as a dot/coin
 ![](../images/scalar.jpg)
 
 ##  Vector as a line/bar
@@ -40,7 +40,7 @@ output:
 
 
 ```{r index, echo=TRUE}
-mat <- matrix(1:6,4,6)
+mat <- matrix(1:24,4,6)
 arr <- array(1:40, dim = c(4,5,2))
 
 mat[3,4]
@@ -51,7 +51,7 @@ mat[3,4]
 
 ## Working with List
 
-- Load Homework 1 Assignment into environment as list
+- Load list of Homework 1 objects into environment
 
 - What does it look like?
 
@@ -90,7 +90,7 @@ hw1_dat$mat
 
 ```
 
-## 
+## Extract elements from object in list
 
 - Get the element in the 2nd row and 3rd column from the first object in hw1_dat
 
@@ -117,7 +117,7 @@ library(help = "base")
 
 - Packages contains funtions and data not included in the base package
 
-- Programers develop packages for specific disciplines or simplifying their coding process
+- Programers develop packages for specific fields or simplifying their coding process
 
 - Beware that a function in one package can mask a function in another package
 
@@ -136,6 +136,15 @@ library(tidyverse)
 ```
 
 - Collection of packages for data analysis and visualization where the packages share similar structure, concepts, and coding logic.
+
+
+## Special Library Loading
+
+- Call a specific function from a package for a specific code
+- Use the format
+    + package::function()
+    + e.g., dplyr::filter() 
+
 
 # Getting Data Into and Out of R
 
@@ -227,16 +236,17 @@ write.dta(drinks,"C:/Users/SHong/Desktop/drinks.dta")
     
 - Describe the data
     + Some commands to consider.... str, summary, colnames, rownames, length
+    + commands you've learned in other courses
 
 - Export the data
     + in any file format of your choice
-    + must be in a different subdirectory or directory
+    + must be in a different directory or subdirectory
     
 ## Exercises : Reviewer
 
 - Run the code given to you
     + What did you learn from the other person's code?
-    + Were you able to perfom any trouble shooting?
+    + Were you able to perfom any troubleshooting?
     + What challenges did you experience in reading/running the other person's code?
     
 ## Exercises : Bonus
