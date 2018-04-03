@@ -1,0 +1,117 @@
+---
+title: "Best Practices"
+author: "Savet Hong"
+date: "March 26, 2018"
+output:
+  slidy_presentation:
+    incremental: true
+---
+
+# File Structure
+
+## Folders
+
+- Folders/Directories should be organized in a manner that's easy to
+    + follow and identify content 
+    + replicate
+    
+- Project Folder should include the following subfolders:
+    + Script
+    + Original Data
+    + Modified (or Analysis) Data
+    + Results
+    + README
+    
+- Additional Reading:
+   Project TIER: (https://www.projecttier.org/documents/3/TIER-Protocol-2.0-for-R.pdf)
+
+# Script Structure
+
+## Script
+
+- Layout includes:
+    + Preamble
+    + Libraries/ Import
+    + Data Setup
+    + Analysis
+    + Graphics/Tables
+    + Export
+    
+## Preamble    
+- Title/Project
+- Author (optional)
+- Purpose of Script File
+- Previous Dependent Script File
+- Subsequent Dependent Script File
+- Notes
+
+
+<!---
+![](../images/preamble.jpg)
+-->
+
+## Libraries/Import
+- include major libraries used for file to run
+    + allow others to know what packages they need to install to use your code
+- import all data to be used in one section
+    + shows other user all relevant data file necessary for analysis or code functionality
+
+<!---
+![](../images/import.jpg)
+-->
+
+## Data Setup
+- Any data cleaning or restructuring necessary for data use
+- May include subsection to allow readers to understand what is done for which data
+
+## Analysis
+- Include comments on the type of analysis or calculation being performed 
+    + if the calculation is for a specific table, name the table
+    + e.g., \# Table 1 in CSR 
+
+## Graphics/Tables
+- Include comments on the type graphs being generated
+    + include figure name if used in specific report
+    + e.g., \# Figure 1 for Council Report
+    
+## Save/Export
+- Identify the data objects being saved or exported for later use
+
+
+# Syntax Structure
+
+## Spacing 
+- Spaces around assigment and operators
+    + Includes: <-, +, -, =, ==, &, &&
+- Space only after comma (not before)
+- Extra space for alignment
+- Space before left parentheses except in a call function
+
+    ```{r spacing, echo=TRUE, warning=FALSE, error=FALSE, eval=FALSE}
+basic  <- list(
+  total = a + b + c, 
+  mean  = (a + b + c) / n)
+
+```
+
+## Curly Braces
+- opening curly brace ( { ) should never go on its own line
+- always followed by a new line
+- closing curly brace ( } ) should always go on its own line
+
+    ```{r braces, echo=TRUE, warning=FALSE, error=FALSE, eval=FALSE}
+if (y < 0 & debug) {
+  message(“Y is negative”)
+}
+
+```
+
+## Indentation
+- Be consistent
+- Use two spaces or tab
+- Don't mix spaces and tab
+
+## Line Length
+- 80 characters
+- Within the viewing frame
+
