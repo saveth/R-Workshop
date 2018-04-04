@@ -1,7 +1,7 @@
 ---
 title: "Best Practices"
 author: "Savet Hong"
-date: "March 26, 2018"
+date: "`r format(Sys.Date(), '%b %d, %Y')`"
 output:
   slidy_presentation:
     incremental: true
@@ -22,8 +22,10 @@ output:
     + Results
     + README
     
+- Principle: Should be able to provide the README, Script, and Original Data to someone and everything else in the project folder can be reproduced.    
+    
 - Additional Reading:
-   Project TIER: (https://www.projecttier.org/documents/3/TIER-Protocol-2.0-for-R.pdf)
+   Project TIER (https://www.projecttier.org/documents/3/TIER-Protocol-2.0-for-R.pdf)
 
 # Script Structure
 
@@ -67,12 +69,12 @@ output:
 ## Analysis
 - Include comments on the type of analysis or calculation being performed 
     + if the calculation is for a specific table, name the table
-    + e.g., \# Table 1 in CSR 
+    + e.g., Table 1 in CSR 
 
 ## Graphics/Tables
 - Include comments on the type graphs being generated
     + include figure name if used in specific report
-    + e.g., \# Figure 1 for Council Report
+    + e.g., Figure 1 for Council Report
     
 ## Save/Export
 - Identify the data objects being saved or exported for later use
@@ -115,3 +117,15 @@ if (y < 0 & debug) {
 - 80 characters
 - Within the viewing frame
 
+## Concepts covered
+1. Folder structure
+2. Script Formatting
+3. syntax Formatting
+
+## References
+- Google's R Style Guide
+https://google.github.io/styleguide/Rguide.xml
+- Hadley Wickham's Advance
+http://adv-r.had.co.nz/Style.html
+- Tidyverse Style Guide
+http://style.tidyverse.org/syntax.html#semicolons
