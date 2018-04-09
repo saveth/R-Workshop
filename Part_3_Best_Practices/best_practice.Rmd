@@ -22,7 +22,8 @@ output:
     + Results
     + README
     
-- Principle: Should be able to provide the README, Script, and Original Data to someone and everything else in the project folder can be reproduced.    
+- Principle: Should be able to provide the README, Script, and Original Data to someone and everything else in the project folder can be reproduced. 
+    + README should outline project, source of data, order of script files, and product generated.
     
 - Additional Reading:
    Project TIER (https://www.projecttier.org/documents/3/TIER-Protocol-2.0-for-R.pdf)
