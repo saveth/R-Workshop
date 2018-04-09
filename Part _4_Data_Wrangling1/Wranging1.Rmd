@@ -9,6 +9,65 @@ output:
 ---
 
 
+```{r examples, include=FALSE}
+library(readxl)
+drinks <- read_excel("../data/drinks_USbirths.xlsx", sheet = "drinks", skip = 2)
+births <- read_excel("../data/drinks_USbirths.xlsx", sheet = "USBirths", skip = 2)
+```
+
+## Data Cleaning Concept
+
+- Validation
+- Index element/object
+- Formatting and Replacement
+
+- Examples we have done
+    ```{r basic_cleaning, eval= FALSE}
+    d
+```    
+
+## Handy Package: Tidyverse
+
+- Dplyr (a package within Tidyverse) Common Concepts 
+    + mutate: transformation of variable
+    + select: subsetting columns (select specific columns or remove columns)
+    + filter: subsetting rows (select specific rows or remove rows)
+    + group: 
+
+
+## Scenario 1
+
+- The accounting office tracks has a system that tracks your unit expenses, and your unit admin also tracks the expenses for your unit. Reconcile the the expenditure.
+
+- What do you examine in the data?
+- 
+    + same number of records in both data files
+    + sum is equivalent
+    + same values in both data files
+    + if discrepencies exist, validate using third data source
+
+
+## Practice 1
+- Read in the OBJ.RDS data file
+    + Extract the first object in the list and save it to an object
+    + Extract the second object in the list and save it to a different object
+
+- Perform your data validation
+- Assume you validate using a third data source, make the necessary correction.
+    
+## Scenario 2
+- You have been asked append a manually dataset to the master dataset for a court. The manual data was provided to you in an excel file. What checks do you perform?
+
+- Checks
+    + number of rows and column correspond to the excel file 
+    + if hidden rows/columns exit determine
+    + Identify if any columns/rows will be impacted by hidden fields
+
+## Practice 2
+
+- Read in the excel file "filings.xlsx"
+- Perform your data checks
+- Clean the manual data
 
 
 ## Concepts Covered
