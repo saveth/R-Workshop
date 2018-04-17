@@ -21,19 +21,59 @@ births <- read_excel("../data/drinks_USbirths.xlsx", sheet = "USBirths", skip = 
 - Index element/object
 - Formatting and Replacement
 
+
 - Examples we have done
     ```{r basic_cleaning, eval= FALSE}
-    d
+
+nums_fact[nums_fact=="one"] <- "two" 
+nums_fact <- factor(nums_fact)
 ```    
 
 ## Handy Package: Tidyverse
 
 - Dplyr (a package within Tidyverse) Common Concepts 
-    + mutate: transformation of variable
+    + mutate: transformation/creation of variable
     + select: subsetting columns (select specific columns or remove columns)
     + filter: subsetting rows (select specific rows or remove rows)
-    + group: 
+    + group: associating variables/calculation by classification defined by one or more variables
 
+- Dplyr functions follows the format
+    + function(data, operation...)
+    + chaining requires 
+    data %>%
+    function(operation...)
+
+## Dply Example using the drinks dataset
+
+- Read in the data and call the appropriate libraries
+
+    ```{r drinks, echo= TRUE, eval=FALSE}
+library(readr)
+library(tidyverse)
+
+drinks <- read_excel("../data/drinks_USbirths.xlsx", sheet = "drinks", skip = 2)
+    
+```  
+
+- Create another variable calculating the sum of total serving of alcohol consumed
+
+    ```{r serving, echo=TRUE, eval=FALSE}
+
+# Option 1: R built-in fuctions    
+drinks$total_serving = apply(drinks[,2:4], 1, sum)
+
+# Option 2: Dplyr    
+drinks <- drinks %>%
+  mutate(total_serving = sum(beer_serving:wine_serving))
+        
+```
+
+## 
+- Create a subset dataset that includes 3 countries of your choice
+    ```{r subset, echo=TRUE, eval=FALSE}
+drinks_countries3 <- drinks %>%
+  filter(country %in% c("USA", "Canada", "Mexico"))
+```
 
 ## Scenario 1
 
