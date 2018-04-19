@@ -49,9 +49,9 @@ output:
 - Notes
 
 
-<!---
+
 ![](../images/preamble.jpg)
--->
+
 
 ## Libraries/Import
 - include major libraries used for file to run
@@ -59,13 +59,14 @@ output:
 - import all data to be used in one section
     + shows other user all relevant data file necessary for analysis or code functionality
 
-<!---
+
 ![](../images/import.jpg)
--->
 
 ## Data Setup
 - Any data cleaning or restructuring necessary for data use
 - May include subsection to allow readers to understand what is done for which data
+
+![](../images/setup.jpg)
 
 ## Analysis
 - Include comments on the type of analysis or calculation being performed 
@@ -76,16 +77,19 @@ output:
 - Include comments on the type graphs being generated
     + include figure name if used in specific report
     + e.g., Figure 1 for Council Report
-    
+
+![](../images/graph.jpg)    
+
 ## Save/Export
 - Identify the data objects being saved or exported for later use
 
+![](../images/export.jpg) 
 
 # Syntax Structure
 
 ## Spacing 
 - Spaces around assigment and operators
-    + Includes: <-, +, -, =, ==, &, &&
+    + Includes: <-, ->, +, -, =, ==, &, &&, etc.
 - Space only after comma (not before)
 - Extra space for alignment
 - Space before left parentheses except in a call function
@@ -120,8 +124,8 @@ if (y < 0 & debug) {
 
 ## Concepts covered
 1. Folder structure
-2. Script Formatting
-3. syntax Formatting
+2. Script formatting
+3. Syntax formatting
 
 ## References
 - Google's R Style Guide
