@@ -1,6 +1,6 @@
 ---
 title: "Data Wrangling Part 1:"
-subtitle: "Undertanding Your Data"
+subtitle: "How to Work with Your Data"
 author: "Savet Hong"
 date: "`r format(Sys.Date(), '%b %d, %Y')`"
 output:
@@ -15,12 +15,9 @@ drinks <- read_excel("../data/drinks_USbirths.xlsx", sheet = "drinks", skip = 2)
 births <- read_excel("../data/drinks_USbirths.xlsx", sheet = "USBirths", skip = 2)
 ```
 
-## Data Cleaning Concept
-
-- Validation
-- Index element/object
-- Formatting and Replacement
-
+## Changing the Data
+- Index element/object replacement
+- Format change/reassignment
 
 - Examples we have done
     ```{r basic_cleaning, eval= FALSE}
@@ -33,6 +30,7 @@ nums_fact <- factor(nums_fact)
 
 - Dplyr (a package within Tidyverse) Common Concepts 
     + mutate: transformation/creation of variable
+    + summarise: calculation typically performed on grouped data
     + select: subsetting columns (select specific columns or remove columns)
     + filter: subsetting rows (select specific rows or remove rows)
     + group: associating variables/calculation by classification defined by one or more variables
@@ -43,18 +41,27 @@ nums_fact <- factor(nums_fact)
     data %>%
     function(operation...)
 
-## Dply Example using the drinks dataset
+- Tidyr (a package within Tidyverse) Common Concepts 
+    + gather: reshape from wide to long
+    + spread: reshape from long to wide
+    
+- Tidyr functions format
+    + function(data, key, value, ...)
+    + data %>% function(key, value, ...)
+
+## Dplyr Example using the drinks dataset
 
 - Read in the data and call the appropriate libraries
 
     ```{r drinks, echo= TRUE, eval=FALSE}
-library(readr)
+library(readxl)
 library(tidyverse)
 
 drinks <- read_excel("../data/drinks_USbirths.xlsx", sheet = "drinks", skip = 2)
     
 ```  
 
+## Example 1
 - Create another variable calculating the sum of total serving of alcohol consumed
 
     ```{r serving, echo=TRUE, eval=FALSE}
@@ -68,67 +75,55 @@ drinks <- drinks %>%
         
 ```
 
-## 
+## Example 2
+- Find the total alcohol consumption across each category.
+    ```{r serving_total, echo=TRUE, eval=FALSE}
+
+# Option 1: R built-in fuctions    
+total_serving = apply(drinks[,2:ncol(drinks)], 2, sum)
+
+# Option 2: Dplyr    
+ drinks %>%
+  summarise_if(drinks,is.numeric,sum)
+        
+```
+
+## Scenario 1: Find the total serving of alcohol for three selected countries.
 - Create a subset dataset that includes 3 countries of your choice
     ```{r subset, echo=TRUE, eval=FALSE}
 drinks_countries3 <- drinks %>%
   filter(country %in% c("USA", "Canada", "Mexico"))
 ```
 
-## Scenario 1
+## 
+- Reformat the data so that the alcohol type is under the variable "Alcohol_Type" and their associated values under "Serving"
+    ```{r long, echo=TRUE, eval=FALSE}
+drinks_long <- drinks %>%
+      filter(country %in% c("USA", "Canada", "Mexico")) %>%
+      gather(key = "Alcohol_Type", value = "Serving", -country)
+      
+```
 
-- The accounting office tracks has a system that tracks your unit expenses, and your unit admin also tracks the expenses for your unit. Reconcile the the expenditure.
+## 
+- Remove the rows containing "total_litres_of_pure_alcohol" from your data
+    ```{r filter21, echo=TRUE, eval=FALSE}
+drinks_serving <- drinks_long %>%
+  filter(Alcohol_Type == "total_litres_of_pure_alcohol" )
+```
 
-- What do you examine in the data?
-- 
-    + same number of records in both data files
-    + sum is equivalent
-    + same values in both data files
-    + if discrepencies exist, validate using third data source
-
-
-## Practice 1
-- Read in the OBJ.RDS data file
-    + Extract the first object in the list and save it to an object
-    + Extract the second object in the list and save it to a different object
-
-- Perform your data validation
-- Assume you validate using a third data source, make the necessary correction.
-    
-## Scenario 2
-- You have been asked append a manually dataset to the master dataset for a court. The manual data was provided to you in an excel file. What checks do you perform?
-
-- Checks
-    + number of rows and column correspond to the excel file 
-    + if hidden rows/columns exit determine
-    + Identify if any columns/rows will be impacted by hidden fields
-
-## Practice 2
-
-- Read in the excel file "filings.xlsx"
-- Perform your data checks
-- Clean the manual data
+- or
+    ```{r filter2, echo=TRUE, eval=FALSE}
+drinks_serving <- drinks %>%
+  filter(country %in% c("USA", "Canada", "Mexico")) %>%
+  gather(key = "Alcohol_Type", value = "Serving", -country) %>%
+  filter(Alcohol_Type == "total_litres_of_pure_alcohol" )
+```
 
 
 ## Concepts Covered
-1. Validation (vectors and  Data import)
-2. Checking for NULL or NA
-3. Replacing Data Element (Indexing)
-4. Introducing Dplyr
-
-
-## Exercises
-
-- Read in the OBJ.RDS data file
-    + Extract the first object in the list and save it to an object
-    + Extract the second object in the list and save it to a different object
-    + What are now the different types of data objects that exist in your Evironment?
-
-- Imagine the first object came from one data source and the second data object came from a second data source, how would you go about validating the data?
-    + Did the two data source collect the same information?
-    + Are there any discrepancies?
-    
-- If the first data source is considered the most valid data, modify and update the second data source if any discrepancies exist.
+1. Dplyr concepts (those primarily used)
+2. Tidyr concepts of data transformation
+3. How to use dplyr and tidyr functions
 
 
 ## Reference
@@ -137,3 +132,11 @@ https://cran.r-project.org/doc/contrib/Short-refcard.pdf
 
 - Data Wrangling Cheat Sheet (Dplyr and Tidyr)
 https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
+
+
+## Exercises
+
+1. Import the US Birth data
+2. Calculate the total births for each month/year
+3. Calculate the total births for each year
+4. Bonus: Plot your findings.

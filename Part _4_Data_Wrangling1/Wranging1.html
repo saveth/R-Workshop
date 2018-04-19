@@ -51,18 +51,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <body>
 <div class="slide titlepage">
   <h1 class="title">Data Wrangling Part 1:</h1>
-  <h1 class="subtitle">Undertanding Your Data</h1>
+  <h1 class="subtitle">How to Work with Your Data</h1>
   <p class="author">
 Savet Hong
   </p>
-  <p class="date">Apr 17, 2018</p>
+  <p class="date">Apr 18, 2018</p>
 </div>
-<div id="data-cleaning-concept" class="slide section level2">
-<h2>Data Cleaning Concept</h2>
+<div id="changing-the-data" class="slide section level2">
+<h2>Changing the Data</h2>
 <ul class="incremental">
-<li>Validation</li>
-<li>Index element/object</li>
-<li><p>Formatting and Replacement</p></li>
+<li>Index element/object replacement</li>
+<li><p>Format change/reassignment</p></li>
 <li><p>Examples we have done</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nums_fact[nums_fact<span class="op">==</span><span class="st">&quot;one&quot;</span>] &lt;-<span class="st"> &quot;two&quot;</span> 
 nums_fact &lt;-<span class="st"> </span><span class="kw">factor</span>(nums_fact)</code></pre></div></li>
@@ -74,6 +73,7 @@ nums_fact &lt;-<span class="st"> </span><span class="kw">factor</span>(nums_fact
 <li>Dplyr (a package within Tidyverse) Common Concepts
 <ul class="incremental">
 <li>mutate: transformation/creation of variable</li>
+<li>summarise: calculation typically performed on grouped data</li>
 <li>select: subsetting columns (select specific columns or remove columns)</li>
 <li>filter: subsetting rows (select specific rows or remove rows)</li>
 <li>group: associating variables/calculation by classification defined by one or more variables</li>
@@ -83,16 +83,31 @@ nums_fact &lt;-<span class="st"> </span><span class="kw">factor</span>(nums_fact
 <li>function(data, operation…)</li>
 <li>chaining requires data %&gt;% function(operation…)</li>
 </ul></li>
+<li>Tidyr (a package within Tidyverse) Common Concepts
+<ul class="incremental">
+<li>gather: reshape from wide to long</li>
+<li>spread: reshape from long to wide</li>
+</ul></li>
+<li>Tidyr functions format
+<ul class="incremental">
+<li>function(data, key, value, …)</li>
+<li>data %&gt;% function(key, value, …)</li>
+</ul></li>
 </ul>
 </div>
-<div id="dply-example-using-the-drinks-dataset" class="slide section level2">
-<h2>Dply Example using the drinks dataset</h2>
+<div id="dplyr-example-using-the-drinks-dataset" class="slide section level2">
+<h2>Dplyr Example using the drinks dataset</h2>
 <ul class="incremental">
 <li><p>Read in the data and call the appropriate libraries</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readr)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)
 <span class="kw">library</span>(tidyverse)
 
 drinks &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;../data/drinks_USbirths.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;drinks&quot;</span>, <span class="dt">skip =</span> <span class="dv">2</span>)</code></pre></div></li>
+</ul>
+</div>
+<div id="example-1" class="slide section level2">
+<h2>Example 1</h2>
+<ul class="incremental">
 <li><p>Create another variable calculating the sum of total serving of alcohol consumed</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Option 1: R built-in fuctions    </span>
 drinks<span class="op">$</span>total_serving =<span class="st"> </span><span class="kw">apply</span>(drinks[,<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">1</span>, sum)
@@ -102,84 +117,55 @@ drinks &lt;-<span class="st"> </span>drinks <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total_serving =</span> <span class="kw">sum</span>(beer_serving<span class="op">:</span>wine_serving))</code></pre></div></li>
 </ul>
 </div>
+<div id="example-2" class="slide section level2">
+<h2>Example 2</h2>
+<ul class="incremental">
+<li><p>Find the total alcohol consumption across each category.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Option 1: R built-in fuctions    </span>
+total_serving =<span class="st"> </span><span class="kw">apply</span>(drinks[,<span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(drinks)], <span class="dv">2</span>, sum)
+
+<span class="co"># Option 2: Dplyr    </span>
+ drinks <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise_if</span>(drinks,is.numeric,sum)</code></pre></div></li>
+</ul>
+</div>
+<div id="scenario-1-find-the-total-serving-of-alcohol-for-three-selected-countries." class="slide section level2">
+<h2>Scenario 1: Find the total serving of alcohol for three selected countries.</h2>
+<ul class="incremental">
+<li><p>Create a subset dataset that includes 3 countries of your choice</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">drinks_countries3 &lt;-<span class="st"> </span>drinks <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(country <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;USA&quot;</span>, <span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>))</code></pre></div></li>
+</ul>
+</div>
 <div id="section" class="slide section level2">
 <h2></h2>
 <ul class="incremental">
-<li>Create a subset dataset that includes 3 countries of your choice</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">drinks_3countries &lt;-<span class="st"> </span>drinks <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(country <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;USA&quot;</span>, <span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>))</code></pre></div>
-</div>
-<div id="scenario-1" class="slide section level2">
-<h2>Scenario 1</h2>
-<ul class="incremental">
-<li><p>The accounting office tracks has a system that tracks your unit expenses, and your unit admin also tracks the expenses for your unit. Reconcile the the expenditure.</p></li>
-<li>What do you examine in the data?</li>
-<li><ul class="incremental">
-<li>same number of records in both data files</li>
-<li>sum is equivalent</li>
-<li>same values in both data files</li>
-<li>if discrepencies exist, validate using third data source</li>
-</ul></li>
+<li><p>Reformat the data so that the alcohol type is under the variable “Alcohol_Type” and their associated values under “Serving”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">drinks_long &lt;-<span class="st"> </span>drinks <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(country <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;USA&quot;</span>, <span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;Alcohol_Type&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;Serving&quot;</span>, <span class="op">-</span>country)</code></pre></div></li>
 </ul>
 </div>
-<div id="practice-1" class="slide section level2">
-<h2>Practice 1</h2>
+<div id="section-1" class="slide section level2">
+<h2></h2>
 <ul class="incremental">
-<li>Read in the OBJ.RDS data file
-<ul class="incremental">
-<li>Extract the first object in the list and save it to an object</li>
-<li>Extract the second object in the list and save it to a different object</li>
-</ul></li>
-<li>Perform your data validation</li>
-<li>Assume you validate using a third data source, make the necessary correction.</li>
-</ul>
-</div>
-<div id="scenario-2" class="slide section level2">
-<h2>Scenario 2</h2>
-<ul class="incremental">
-<li><p>You have been asked append a manually dataset to the master dataset for a court. The manual data was provided to you in an excel file. What checks do you perform?</p></li>
-<li>Checks
-<ul class="incremental">
-<li>number of rows and column correspond to the excel file</li>
-<li>if hidden rows/columns exit determine</li>
-<li>Identify if any columns/rows will be impacted by hidden fields</li>
-</ul></li>
-</ul>
-</div>
-<div id="practice-2" class="slide section level2">
-<h2>Practice 2</h2>
-<ul class="incremental">
-<li>Read in the excel file “filings.xlsx”</li>
-<li>Perform your data checks</li>
-<li>Clean the manual data</li>
+<li><p>Remove the rows containing “total_litres_of_pure_alcohol” from your data</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">drinks_serving &lt;-<span class="st"> </span>drinks_long <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(Alcohol_Type <span class="op">==</span><span class="st"> &quot;total_litres_of_pure_alcohol&quot;</span> )</code></pre></div></li>
+<li><p>or</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">drinks_serving &lt;-<span class="st"> </span>drinks <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(country <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;USA&quot;</span>, <span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;Alcohol_Type&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;Serving&quot;</span>, <span class="op">-</span>country) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(Alcohol_Type <span class="op">==</span><span class="st"> &quot;total_litres_of_pure_alcohol&quot;</span> )</code></pre></div></li>
 </ul>
 </div>
 <div id="concepts-covered" class="slide section level2">
 <h2>Concepts Covered</h2>
 <ol class="incremental" style="list-style-type: decimal">
-<li>Validation (vectors and Data import)</li>
-<li>Checking for NULL or NA</li>
-<li>Replacing Data Element (Indexing)</li>
-<li>Introducing Dplyr</li>
+<li>Dplyr concepts (those primarily used)</li>
+<li>Tidyr concepts of data transformation</li>
+<li>How to use dplyr and tidyr functions</li>
 </ol>
-</div>
-<div id="exercises" class="slide section level2">
-<h2>Exercises</h2>
-<ul class="incremental">
-<li>Read in the OBJ.RDS data file
-<ul class="incremental">
-<li>Extract the first object in the list and save it to an object</li>
-<li>Extract the second object in the list and save it to a different object</li>
-<li>What are now the different types of data objects that exist in your Evironment?</li>
-</ul></li>
-<li>Imagine the first object came from one data source and the second data object came from a second data source, how would you go about validating the data?
-<ul class="incremental">
-<li>Did the two data source collect the same information?</li>
-<li>Are there any discrepancies?</li>
-</ul></li>
-<li>If the first data source is considered the most valid data, modify and update the second data source if any discrepancies exist.</li>
-</ul>
 </div>
 <div id="reference" class="slide section level2">
 <h2>Reference</h2>
@@ -187,6 +173,15 @@ drinks &lt;-<span class="st"> </span>drinks <span class="op">%&gt;%</span>
 <li><p>R Reference Card <a href="https://cran.r-project.org/doc/contrib/Short-refcard.pdf" class="uri">https://cran.r-project.org/doc/contrib/Short-refcard.pdf</a></p></li>
 <li><p>Data Wrangling Cheat Sheet (Dplyr and Tidyr) <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf</a></p></li>
 </ul>
+</div>
+<div id="exercises" class="slide section level2">
+<h2>Exercises</h2>
+<ol class="incremental" style="list-style-type: decimal">
+<li>Import the US Birth data</li>
+<li>Calculate the total births for each month/year</li>
+<li>Calculate the total births for each year</li>
+<li>Bonus: Plot your findings.</li>
+</ol>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->
