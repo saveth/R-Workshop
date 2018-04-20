@@ -55,7 +55,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <p class="author">
 Savet Hong
   </p>
-  <p class="date">Apr 18, 2018</p>
+  <p class="date">Apr 20, 2018</p>
 </div>
 <div id="changing-the-data" class="slide section level2">
 <h2>Changing the Data</h2>
@@ -120,7 +120,7 @@ drinks &lt;-<span class="st"> </span>drinks <span class="op">%&gt;%</span>
 <div id="example-2" class="slide section level2">
 <h2>Example 2</h2>
 <ul class="incremental">
-<li><p>Find the total alcohol consumption across each category.</p>
+<li><p>Find the total alcohol consumption for each category.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Option 1: R built-in fuctions    </span>
 total_serving =<span class="st"> </span><span class="kw">apply</span>(drinks[,<span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(drinks)], <span class="dv">2</span>, sum)
 
@@ -151,12 +151,12 @@ total_serving =<span class="st"> </span><span class="kw">apply</span>(drinks[,<s
 <ul class="incremental">
 <li><p>Remove the rows containing “total_litres_of_pure_alcohol” from your data</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">drinks_serving &lt;-<span class="st"> </span>drinks_long <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(Alcohol_Type <span class="op">==</span><span class="st"> &quot;total_litres_of_pure_alcohol&quot;</span> )</code></pre></div></li>
+<span class="st">  </span><span class="kw">filter</span>(Alcohol_Type <span class="op">!=</span><span class="st"> &quot;total_litres_of_pure_alcohol&quot;</span> )</code></pre></div></li>
 <li><p>or</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">drinks_serving &lt;-<span class="st"> </span>drinks <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(country <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;USA&quot;</span>, <span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;Alcohol_Type&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;Serving&quot;</span>, <span class="op">-</span>country) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(Alcohol_Type <span class="op">==</span><span class="st"> &quot;total_litres_of_pure_alcohol&quot;</span> )</code></pre></div></li>
+<span class="st">  </span><span class="kw">filter</span>(Alcohol_Type <span class="op">!=</span><span class="st"> &quot;total_litres_of_pure_alcohol&quot;</span> )</code></pre></div></li>
 </ul>
 </div>
 <div id="concepts-covered" class="slide section level2">

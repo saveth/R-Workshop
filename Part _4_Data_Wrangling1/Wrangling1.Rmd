@@ -76,7 +76,7 @@ drinks <- drinks %>%
 ```
 
 ## Example 2
-- Find the total alcohol consumption across each category.
+- Find the total alcohol consumption for each category.
     ```{r serving_total, echo=TRUE, eval=FALSE}
 
 # Option 1: R built-in fuctions    
@@ -108,7 +108,7 @@ drinks_long <- drinks %>%
 - Remove the rows containing "total_litres_of_pure_alcohol" from your data
     ```{r filter21, echo=TRUE, eval=FALSE}
 drinks_serving <- drinks_long %>%
-  filter(Alcohol_Type == "total_litres_of_pure_alcohol" )
+  filter(Alcohol_Type != "total_litres_of_pure_alcohol" )
 ```
 
 - or
@@ -116,7 +116,7 @@ drinks_serving <- drinks_long %>%
 drinks_serving <- drinks %>%
   filter(country %in% c("USA", "Canada", "Mexico")) %>%
   gather(key = "Alcohol_Type", value = "Serving", -country) %>%
-  filter(Alcohol_Type == "total_litres_of_pure_alcohol" )
+  filter(Alcohol_Type != "total_litres_of_pure_alcohol" )
 ```
 
 
