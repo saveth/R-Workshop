@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <meta name="author" content="Savet Hong" />
-  <meta name="date" content="2018-05-04" />
+  <meta name="date" content="2018-05-07" />
   <title>Data Wrangling Part 2:</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
@@ -56,7 +56,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <p class="author">
 Savet Hong
   </p>
-  <p class="date">May 04, 2018</p>
+  <p class="date">May 07, 2018</p>
 </div>
 <div id="validation" class="titleslide slide section level1"><h1>Validation</h1></div><div id="scenario-court-filing-data" class="slide section level2">
 <h2>Scenario: Court Filing Data</h2>
@@ -117,7 +117,7 @@ filing &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span cl
 <li>Statute code and fine amount</li>
 <li>Fine amount and Description</li>
 </ul></li>
-<li>How many duplicate records exist in the data?</li>
+<li>How many/ which record have duplicates in the data?</li>
 </ul>
 </div><div id="section-2" class="slide section level2">
 <h2></h2>
@@ -161,6 +161,13 @@ peremp_orig2 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<s
 <span class="kw">View</span>(peremp_orig2) </code></pre></div></li>
 <li>What do you observe?</li>
 </ul>
+</div><div id="section-3" class="slide section level2">
+<h2></h2>
+<ul class="incremental">
+<li>Notice that the original data contains element for each case as part of the header</li>
+<li>Difficult to parse out or include specific data element in batch for group of cases</li>
+<li>The excel sheet requires a little more structure to help resolve the issue of cleaning in R</li>
+</ul>
 </div><div id="scenario-peremptory-modifiied" class="slide section level2">
 <h2>Scenario: Peremptory Modifiied</h2>
 <ul class="incremental">
@@ -178,83 +185,58 @@ peremp_orig2 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<s
 <li>remove non-case rows</li>
 </ul></li>
 </ul>
-</div><div id="section-3" class="slide section level2">
-<h2></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">peremp_clean &lt;-<span class="st"> </span>peremp_mod <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">select</span>(<span class="op">-</span><span class="st"> </span><span class="kw">c</span>(X__<span class="dv">2</span>, X__<span class="dv">4</span>,X__<span class="dv">5</span>, X__<span class="dv">12</span><span class="op">:</span>X__<span class="dv">20</span>)) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">rename</span>(<span class="dt">caseid =</span> X__<span class="dv">1</span>, <span class="dt">case_title =</span> X__<span class="dv">3</span>, <span class="dt">retry =</span> X__<span class="dv">6</span>, <span class="dt">Room =</span> X__<span class="dv">7</span>,
-             <span class="dt">start_date =</span> X__<span class="dv">8</span>, <span class="dt">end_date =</span> X__<span class="dv">9</span>, <span class="dt">juror_sent =</span> X__<span class="dv">10</span>, 
-             <span class="dt">disposition =</span> X__<span class="dv">11</span>, <span class="dt">judge =</span> X__<span class="dv">21</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(caseid)) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">filter</span>(caseid <span class="op">!=</span><span class="st"> &quot;Case ID&quot;</span>)</code></pre></div>
-<ul class="incremental">
-<li>Are there additional cleaning or modification that needs to be done?</li>
-</ul>
 </div><div id="section-4" class="slide section level2">
 <h2></h2>
 <ul class="incremental">
-<li><p>The accounting office tracks has a system that tracks your unit expenses, and your unit admin also tracks the expenses for your unit. Reconcile the the expenditure.</p></li>
-<li>What do you examine in the data?
+<li><p>check for columns with all NAs</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(peremp_mod, <span class="cf">function</span>(x) <span class="kw">all</span>(<span class="kw">is.na</span>(x))) </code></pre></div></li>
+<li><p>Clean up the imported data file</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">peremp_clean &lt;-<span class="st"> </span>peremp_mod <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="st"> </span><span class="kw">c</span>(X__<span class="dv">4</span>,X__<span class="dv">5</span>, X__<span class="dv">12</span><span class="op">:</span>X__<span class="dv">20</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">caseid =</span> X__<span class="dv">1</span>, <span class="dt">case_title =</span> X__<span class="dv">3</span>, <span class="dt">retry =</span> X__<span class="dv">6</span>, <span class="dt">Room =</span> X__<span class="dv">7</span>,
+         <span class="dt">start_date =</span> X__<span class="dv">8</span>, <span class="dt">end_date =</span> X__<span class="dv">9</span>, <span class="dt">juror_sent =</span> X__<span class="dv">10</span>, 
+         <span class="dt">disposition =</span> X__<span class="dv">11</span>, <span class="dt">judge =</span> X__<span class="dv">21</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(caseid)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(caseid <span class="op">!=</span><span class="st"> &quot;Case ID&quot;</span>)</code></pre></div></li>
+<li><p>Are there additional cleaning or modification that needs to be done?</p></li>
+</ul>
+</div><div id="scenario-template-to-data-tables" class="slide section level2">
+<h2>Scenario: Template to Data Tables</h2>
 <ul class="incremental">
-<li>same number of records in both data files</li>
-<li>sum is equivalent</li>
-<li>same values in both data files</li>
-<li>if discrepencies exist, validate using third data source</li>
+<li>Examine the template data
+<ul class="incremental">
+<li>What do you observe?</li>
+<li>Can the data be imported as is and cleaned in R?</li>
+<li>Or does it require modification in the Excel file first?</li>
+</ul></li>
+<li>What steps needs to be done to clean the data once it’s loaded into R?
+<ul class="incremental">
+<li>remove blank/irrelevant columns (bullet cells)</li>
+<li>rename columns</li>
+<li>Expand the categories in column A
+<ul class="incremental">
+<li>Indentify the unique elements</li>
+<li>Position between each unique elements</li>
+<li>Create a vector with the unique vector expanded equal to the distance between elements</li>
+<li>Repopulate or create a new column with the new vector</li>
+</ul></li>
+<li>Remove rows with none relevant data records</li>
 </ul></li>
 </ul>
-</div><div id="practice-1" class="slide section level2">
-<h2>Practice 1</h2>
+</div><div id="exercises" class="slide section level2">
+<h2>Exercises</h2>
 <ul class="incremental">
-<li>Read in the OBJ.RDS data file
-<ul class="incremental">
-<li>Extract the first object in the list and save it to an object</li>
-<li>Extract the second object in the list and save it to a different object</li>
-</ul></li>
-<li>Perform your data validation</li>
-<li>Assume you validate using a third data source, make the necessary correction.</li>
-</ul>
-</div><div id="scenario-2" class="slide section level2">
-<h2>Scenario 2</h2>
-<ul class="incremental">
-<li><p>You have been asked append a manually dataset to the master dataset for a court. The manual data was provided to you in an excel file. What checks do you perform?</p></li>
-<li>Checks
-<ul class="incremental">
-<li>number of rows and column correspond to the excel file</li>
-<li>if hidden rows/columns exit determine</li>
-<li>Identify if any columns/rows will be impacted by hidden fields</li>
-</ul></li>
-</ul>
-</div><div id="practice-2" class="slide section level2">
-<h2>Practice 2</h2>
-<ul class="incremental">
-<li>Read in the excel file “filings.xlsx”</li>
-<li>Perform your data checks</li>
-<li>Clean the manual data</li>
+<li>Please read in the Template data and perform the necessary cleaning.</li>
 </ul>
 </div><div id="concepts-covered" class="slide section level2">
 <h2>Concepts Covered</h2>
 <ol class="incremental" style="list-style-type: decimal">
-<li>Validation (vectors and Data import)</li>
+<li>Validation (Original Data and Data import)</li>
 <li>Checking for NULL or NA</li>
 <li>Replacing Data Element (Indexing)</li>
-<li>Introducing Dplyr</li>
+<li>Identify/Manage Duplicate Records</li>
+<li>Creating a Clean Flat Data File in R from a non-standardized Excel data file</li>
 </ol>
-</div><div id="exercises" class="slide section level2">
-<h2>Exercises</h2>
-<ul class="incremental">
-<li>Read in the OBJ.RDS data file
-<ul class="incremental">
-<li>Extract the first object in the list and save it to an object</li>
-<li>Extract the second object in the list and save it to a different object</li>
-<li>What are now the different types of data objects that exist in your Evironment?</li>
-</ul></li>
-<li>Imagine the first object came from one data source and the second data object came from a second data source, how would you go about validating the data?
-<ul class="incremental">
-<li>Did the two data source collect the same information?</li>
-<li>Are there any discrepancies?</li>
-</ul></li>
-<li>If the first data source is considered the most valid data, modify and update the second data source if any discrepancies exist.</li>
-</ul>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->

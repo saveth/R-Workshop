@@ -13,6 +13,10 @@ library(readxl)
 library(tidyverse)
 filing <- read_excel("../data/MockData.xlsx", sheet = "CourtA-Filing", skip = 1)
 bail <- read_excel("../data/MockData.xlsx", sheet = "Bail", na = "NA")
+peremp_orig <- read_excel("../data/MockData.xlsx", sheet = "Peremptory_original")
+peremp_orig2 <- read_excel("../data/MockData.xlsx", sheet = "Peremptory_original", skip = 12, col_names = FALSE) 
+peremp_mod <- read_excel("../data/MockData.xlsx", sheet = "Peremptory_modified", skip = 12, col_names = FALSE)
+
 ```
 
 # Validation
@@ -52,6 +56,17 @@ View(filing_clean)
 ```
 
 
+```{r filing_long, echo=TRUE, eval=FALSE, include=FALSE}
+
+filing_long <- filing_clean %>%
+  #select(-Excel_total, -total,total_diff) %>% # remove explicit columns
+  select(`Case Type`:`Jun-18`) %>% # keep explicit columns
+  filter(`Case Type` != "FILING TOTALS:") %>%
+  gather(Fiscal_Month, filing, -`Case Type`)
+
+```
+
+
 ## Scenario: Bail
 
 - Read in the Bail Data
@@ -73,7 +88,7 @@ bail <- read_excel("../data/MockData.xlsx", sheet = "Bail", na = "NA")
     + Statute code only
     + Statute code and fine amount
     + Fine amount and Description
-- How many duplicate records exist in the data?
+- How many/ which record have duplicates in the data?
 
 ## 
 
@@ -113,7 +128,7 @@ bail <- read_excel("../data/MockData.xlsx", sheet = "Bail", na = "NA")
     + Try importing it into R, how did you read it in?
 
 - 
-    ```{r, echo = TRUE}
+    ```{r, echo = TRUE, eval=FALSE}
 peremp_orig <- read_excel("../data/MockData.xlsx", sheet = "Peremptory_original")
 View(peremp_orig)   
 
@@ -122,6 +137,11 @@ View(peremp_orig2)
 ```        
 
 - What do you observe?
+
+##
+- Notice that the original data contains element for each case as part of the header
+- Difficult to parse out or include specific data element in batch for group of cases
+- The excel sheet requires a little more structure to help resolve the issue of cleaning in R
     
 ## Scenario: Peremptory Modifiied
 
@@ -141,9 +161,16 @@ View(peremp_mod)
     + remove non-case rows
 
 ## 
-```{r clean_peremptory, echo= TRUE, eval=FALSE}
+- check for columns with all NAs
+    ```{r peremptory_nas, echo= TRUE, eval=FALSE}
+sapply(peremp_mod, function(x) all(is.na(x))) 
+```
+
+- Clean up the imported data file
+    ```{r clean_peremptory, echo= TRUE, eval=FALSE}  
+
 peremp_clean <- peremp_mod %>%
-      select(- c(X__2, X__4,X__5, X__12:X__20)) %>%
+      select(- c(X__4,X__5, X__12:X__20)) %>%
       rename(caseid = X__1, case_title = X__3, retry = X__6, Room = X__7,
              start_date = X__8, end_date = X__9, juror_sent = X__10, 
              disposition = X__11, judge = X__21) %>%
@@ -154,57 +181,43 @@ peremp_clean <- peremp_mod %>%
 
 - Are there additional cleaning or modification that needs to be done?
 
-##
-- The accounting office tracks has a system that tracks your unit expenses, and your unit admin also tracks the expenses for your unit. Reconcile the the expenditure.
 
-- What do you examine in the data?
-    + same number of records in both data files
-    + sum is equivalent
-    + same values in both data files
-    + if discrepencies exist, validate using third data source
+## Scenario: Template to Data Tables
+- Examine the template data
+    + What do you observe?
+    + Can the data be imported as is and cleaned in R? 
+    + Or does it require modification in the Excel file first? 
 
+- What steps needs to be done to clean the data once it's loaded into R?
+    + remove blank/irrelevant columns (bullet cells)
+    + rename columns
+    + Expand the categories in column A
+        - Indentify the unique elements
+        - Position between each unique elements
+        - Create a vector with the unique vector expanded equal to the distance between elements
+        - Repopulate or create a new column with the new vector
+    + Remove rows with none relevant data records   
 
-## Practice 1
-- Read in the OBJ.RDS data file
-    + Extract the first object in the list and save it to an object
-    + Extract the second object in the list and save it to a different object
+## Exercises
+    
+- Please read in the Template data and perform the necessary cleaning.
+    ```{r template, include=FALSE}
+template <-  read_excel("../data/MockData.xlsx", sheet = "Template")  
 
-- Perform your data validation
-- Assume you validate using a third data source, make the necessary correction.
+# check for columns with nas    
+sapply(template, function(x) all(is.na(x)))     
+    
+# clean the imported data
+template_clean <- template %>%
+  select(-X__1, -X__3, -X__4)
 
-## Scenario 2
-- You have been asked append a manually dataset to the master dataset for a court. The manual data was provided to you in an excel file. What checks do you perform?
-  
-- Checks
-    + number of rows and column correspond to the excel file 
-    + if hidden rows/columns exit determine
-    + Identify if any columns/rows will be impacted by hidden fields
-
-## Practice 2
-
-- Read in the excel file "filings.xlsx"
-- Perform your data checks
-- Clean the manual data
+```
 
 
 ## Concepts Covered
-1. Validation (vectors and  Data import)
+1. Validation (Original Data and  Data import)
 2. Checking for NULL or NA
 3. Replacing Data Element (Indexing)
-4. Introducing Dplyr
-
-
-## Exercises
-
-- Read in the OBJ.RDS data file
-    + Extract the first object in the list and save it to an object
-    + Extract the second object in the list and save it to a different object
-    + What are now the different types of data objects that exist in your Evironment?
-  
-- Imagine the first object came from one data source and the second data object came from a second data source, how would you go about validating the data?
-    + Did the two data source collect the same information?
-    + Are there any discrepancies?
-  
-- If the first data source is considered the most valid data, modify and update the second data source if any discrepancies exist.
-
+4. Identify/Manage Duplicate Records
+5. Creating a Clean Flat Data File in R from a non-standardized Excel data file
 
