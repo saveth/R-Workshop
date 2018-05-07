@@ -16,7 +16,7 @@ bail <- read_excel("../data/MockData.xlsx", sheet = "Bail", na = "NA")
 peremp_orig <- read_excel("../data/MockData.xlsx", sheet = "Peremptory_original")
 peremp_orig2 <- read_excel("../data/MockData.xlsx", sheet = "Peremptory_original", skip = 12, col_names = FALSE) 
 peremp_mod <- read_excel("../data/MockData.xlsx", sheet = "Peremptory_modified", skip = 12, col_names = FALSE)
-
+template <-  read_excel("../data/MockData.xlsx", sheet = "Template")  
 ```
 
 # Validation
@@ -53,17 +53,6 @@ filing_clean <- filing %>%
              total_diff = total - Excel_total)
     
 View(filing_clean)    
-```
-
-
-```{r filing_long, echo=TRUE, eval=FALSE, include=FALSE}
-
-filing_long <- filing_clean %>%
-  #select(-Excel_total, -total,total_diff) %>% # remove explicit columns
-  select(`Case Type`:`Jun-18`) %>% # keep explicit columns
-  filter(`Case Type` != "FILING TOTALS:") %>%
-  gather(Fiscal_Month, filing, -`Case Type`)
-
 ```
 
 
@@ -191,6 +180,7 @@ peremp_clean <- peremp_mod %>%
 - What steps needs to be done to clean the data once it's loaded into R?
     + remove blank/irrelevant columns (bullet cells)
     + rename columns
+    + add "total" where needed
     + Expand the categories in column A
         - Indentify the unique elements
         - Position between each unique elements
@@ -198,26 +188,18 @@ peremp_clean <- peremp_mod %>%
         - Repopulate or create a new column with the new vector
     + Remove rows with none relevant data records   
 
-## Exercises
-    
-- Please read in the Template data and perform the necessary cleaning.
-    ```{r template, include=FALSE}
-template <-  read_excel("../data/MockData.xlsx", sheet = "Template")  
-
-# check for columns with nas    
-sapply(template, function(x) all(is.na(x)))     
-    
-# clean the imported data
-template_clean <- template %>%
-  select(-X__1, -X__3, -X__4)
-
-```
-
-
 ## Concepts Covered
 1. Validation (Original Data and  Data import)
 2. Checking for NULL or NA
 3. Replacing Data Element (Indexing)
 4. Identify/Manage Duplicate Records
 5. Creating a Clean Flat Data File in R from a non-standardized Excel data file
+
+
+## Exercises
+1. Transform you clean filing data into a long dataset
+    + HINT: it should have three columns: casetype, fiscal_month, filing
+
+2. Please read in the Template data and perform the necessary data cleaning.
+    + HINT: useful functions: unique(),is.na(), which(), diff()
 

@@ -213,6 +213,7 @@ peremp_orig2 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<s
 <ul class="incremental">
 <li>remove blank/irrelevant columns (bullet cells)</li>
 <li>rename columns</li>
+<li>add “total” where needed</li>
 <li>Expand the categories in column A
 <ul class="incremental">
 <li>Indentify the unique elements</li>
@@ -223,11 +224,6 @@ peremp_orig2 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<s
 <li>Remove rows with none relevant data records</li>
 </ul></li>
 </ul>
-</div><div id="exercises" class="slide section level2">
-<h2>Exercises</h2>
-<ul class="incremental">
-<li>Please read in the Template data and perform the necessary cleaning.</li>
-</ul>
 </div><div id="concepts-covered" class="slide section level2">
 <h2>Concepts Covered</h2>
 <ol class="incremental" style="list-style-type: decimal">
@@ -236,6 +232,18 @@ peremp_orig2 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<s
 <li>Replacing Data Element (Indexing)</li>
 <li>Identify/Manage Duplicate Records</li>
 <li>Creating a Clean Flat Data File in R from a non-standardized Excel data file</li>
+</ol>
+</div><div id="exercises" class="slide section level2">
+<h2>Exercises</h2>
+<ol class="incremental" style="list-style-type: decimal">
+<li>Transform you clean filing data into a long dataset
+<ul class="incremental">
+<li>HINT: it should have three columns: casetype, fiscal_month, filing</li>
+</ul></li>
+<li>Please read in the Template data and perform the necessary data cleaning.
+<ul class="incremental">
+<li>HINT: useful functions: unique(),is.na(), which(), diff()</li>
+</ul></li>
 </ol>
 </div>
 
