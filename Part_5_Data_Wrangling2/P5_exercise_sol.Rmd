@@ -1,0 +1,83 @@
+---
+title: "Data Wrangling Part 2:"
+subtitle: "Undertanding Your Data"
+subtitle: "Exercise Solution"
+author: "Savet Hong"
+date: "`r format(Sys.Date(), '%b %d, %Y')`"
+output:
+  slidy_presentation:
+  incremental: true
+---
+
+## Exercises
+1. Transform you clean filing data into a long dataset
+    + HINT: it should have three columns: casetype, fiscal_month, filing
+
+- During the last session we go to... 
+- 
+    ```{r filing, eval=FALSE, echo=TRUE}
+library(readxl)
+library(tidyverse)    
+
+filing <- read_excel("../data/MockData.xlsx", sheet = "CourtA-Filing", skip = 1)
+
+
+filing_clean <- filing %>%
+      select(- Total) %>%
+      rename( Excel_total = X__1) %>%
+      mutate(total = rowSums(.[grep("-", names(.))]),
+             total_diff = total - Excel_total)
+    
+View(filing_clean) 
+```
+
+- Transform the data from wide to long
+- 
+    ```{r filing_long, echo=TRUE, eval=FALSE}
+
+filing_long <- filing_clean %>%
+  #select(-Excel_total, -total,total_diff) %>% # remove explicit columns
+  select(`Case Type`:`Jun-18`) %>% # keep explicit columns
+  filter(`Case Type` != "FILING TOTALS:") %>%
+  gather(Fiscal_Month, filing, -`Case Type`)
+
+```
+
+2. Please read in the Template data and perform the necessary data cleaning.
++ HINT: useful functions: unique(),is.na(), which(), diff()
+
+```{r template, echo=TRUE, eval=FALSE}
+# read in the data
+template <-  read_excel("../data/MockData.xlsx", sheet = "Template")  
+
+# check for columns with nas    
+sapply(template, function(x) all(is.na(x)))  
+
+##########################   
+## clean the imported data
+##########################
+# remove na columns, rename, and total
+template_clean <- template %>%
+  select(-X__1, -X__3, -X__4) %>%
+  rename(process = CaseType, task = X__2) %>%
+  mutate(task = replace(task,is.na(task) & !is.na(`Time per Filing (mins)`),"total"))
+
+# Expand Column A as vector
+unique_process <- template_clean$process[c(which(!is.na(template_clean$process)))] #unique process (in order)
+process_pos <- diff(which(!is.na(template_clean$process))) # position/rows between process
+max.pos <- length(unique_process) 
+process_vec <- c(rep(unique_process[-max.pos], process_pos),unique_process[max.pos]) # repeat values until next occurance 
+
+# Add expanded vector into dataset
+template_clean2 <- template_clean %>%
+  mutate(process2 = process_vec) %>%
+  select(process2, process, everything()) # a Good place to check your code and data
+View(template_clean2)
+
+template_clean2 <- template_clean2 %>%
+  filter(!is.na(task)) %>%
+  select(-process) %>%
+  rename(process = process2)
+View(template_clean2)
+
+```
