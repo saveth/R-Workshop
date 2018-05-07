@@ -10,7 +10,7 @@ This 8-12 lessons workshop is designed to help staff to become familiar with the
 * Part 2: Libraries/Packages, Getting Data into and out of R
 * Part 3: Reproducibility: Best Practices (folder setup, script formatting, syntax formatting)
 * Part 4: Dplyr basic function for Data Cleaning/Setup
-* Part 5: Matrix, Data Tables, Data Frames, Data List
+* Part 5: Data Cleaning: Working with Messy Data
 * Part 6: Strings, Date
 * Part 7: Graphics
 * Part 8: Rmarkdown
