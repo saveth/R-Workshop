@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <meta name="author" content="Savet Hong" />
-  <meta name="date" content="2018-05-07" />
+  <meta name="date" content="2018-05-09" />
   <title>Data Wrangling Part 2:</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
@@ -56,7 +56,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <p class="author">
 Savet Hong
   </p>
-  <p class="date">May 07, 2018</p>
+  <p class="date">May 09, 2018</p>
 </div>
 <div id="validation" class="titleslide slide section level1"><h1>Validation</h1></div><div id="scenario-court-filing-data" class="slide section level2">
 <h2>Scenario: Court Filing Data</h2>
@@ -121,31 +121,28 @@ filing &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span cl
 </ul>
 </div><div id="section-2" class="slide section level2">
 <h2></h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Unique records</span>
-    <span class="kw">nrow</span>(bail)
-    <span class="kw">nrow</span>(<span class="kw">unique</span>(bail))
-
-<span class="co"># Unique based on statue only</span>
-    bail_statute_only &lt;-<span class="st"> </span>bail[<span class="op">!</span><span class="kw">duplicated</span>(bail<span class="op">$</span>Statute),]
-    <span class="kw">str</span>(bail_statute_only)
-
-<span class="co"># Unique based on code and fine</span>
-    bail_unique_stat_fine &lt;-<span class="st"> </span>bail <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">distinct</span>(Statute, <span class="st">`</span><span class="dt">Base Fine</span><span class="st">`</span>, <span class="dt">.keep_all =</span> <span class="ot">TRUE</span>)
-    <span class="kw">str</span>(bail_unique_stat_fine)
-
-<span class="co"># Unique based on fine and description</span>
-    bail_unique_fine_desc &lt;-<span class="st"> </span>bail <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">distinct</span>(<span class="st">`</span><span class="dt">Offense Description</span><span class="st">`</span>,<span class="st">`</span><span class="dt">Base Fine</span><span class="st">`</span>, <span class="dt">.keep_all =</span> <span class="ot">TRUE</span>)
-    <span class="kw">str</span>(bail_unique_fine_desc)
-
-<span class="co"># Explain why bail_unique_fine_desc &lt; bail_unique_stat_fine.</span>
-    
-<span class="co"># Records duplicated Count</span>
-    bail_dup_count &lt;-<span class="st"> </span>bail <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">group_by</span>(Statute, <span class="st">`</span><span class="dt">Base Fine</span><span class="st">`</span>, <span class="st">`</span><span class="dt">Offense Description</span><span class="st">`</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">summarise</span>(<span class="dt">count =</span> <span class="kw">n</span>())
-    <span class="kw">table</span>(bail_dup_count<span class="op">$</span>count)</code></pre></div>
+<ul class="incremental">
+<li><p>Unique records</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(bail)
+<span class="kw">nrow</span>(<span class="kw">unique</span>(bail))</code></pre></div></li>
+<li><p>Unique based on statue only</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bail_statute_only &lt;-<span class="st"> </span>bail[<span class="op">!</span><span class="kw">duplicated</span>(bail<span class="op">$</span>Statute),]
+<span class="kw">str</span>(bail_statute_only)</code></pre></div></li>
+<li><p>Unique based on code and fine</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bail_unique_stat_fine &lt;-<span class="st"> </span>bail <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>(Statute, <span class="st">`</span><span class="dt">Base Fine</span><span class="st">`</span>, <span class="dt">.keep_all =</span> <span class="ot">TRUE</span>)
+<span class="kw">str</span>(bail_unique_stat_fine)</code></pre></div></li>
+<li><p>Unique based on fine and description</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bail_unique_fine_desc &lt;-<span class="st"> </span>bail <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">distinct</span>(<span class="st">`</span><span class="dt">Offense Description</span><span class="st">`</span>,<span class="st">`</span><span class="dt">Base Fine</span><span class="st">`</span>, <span class="dt">.keep_all =</span> <span class="ot">TRUE</span>)
+<span class="kw">str</span>(bail_unique_fine_desc)</code></pre></div></li>
+<li><p>Explain why bail_unique_fine_desc &lt; bail_unique_stat_fine.</p></li>
+<li><p>Records duplicated Count</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bail_dup_count &lt;-<span class="st"> </span>bail <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(Statute, <span class="st">`</span><span class="dt">Base Fine</span><span class="st">`</span>, <span class="st">`</span><span class="dt">Offense Description</span><span class="st">`</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">count =</span> <span class="kw">n</span>())
+<span class="kw">table</span>(bail_dup_count<span class="op">$</span>count)</code></pre></div></li>
+</ul>
 </div><div id="scenario-peremptory" class="slide section level2">
 <h2>Scenario: Peremptory</h2>
 <ul class="incremental">

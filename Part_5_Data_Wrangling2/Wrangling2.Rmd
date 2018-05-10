@@ -80,29 +80,36 @@ bail <- read_excel("../data/MockData.xlsx", sheet = "Bail", na = "NA")
 - How many/ which record have duplicates in the data?
 
 ## 
-
-```{r bail_dup, echo = TRUE, eval=FALSE}
-# Unique records
+- Unique records
+    ```{r bail_dup, echo = TRUE, eval=FALSE}
     nrow(bail)
     nrow(unique(bail))
+```
 
-# Unique based on statue only
+- Unique based on statue only
+    ```{r ,echo=TRUE, eval=FALSE} 
     bail_statute_only <- bail[!duplicated(bail$Statute),]
     str(bail_statute_only)
+```
 
-# Unique based on code and fine
+- Unique based on code and fine
+    ```{r ,echo=TRUE, eval=FALSE} 
     bail_unique_stat_fine <- bail %>%
       distinct(Statute, `Base Fine`, .keep_all = TRUE)
     str(bail_unique_stat_fine)
-
-# Unique based on fine and description
+```
+    
+- Unique based on fine and description
+    ```{r ,echo=TRUE, eval=FALSE} 
     bail_unique_fine_desc <- bail %>%
       distinct(`Offense Description`,`Base Fine`, .keep_all = TRUE)
     str(bail_unique_fine_desc)
+```
 
-# Explain why bail_unique_fine_desc < bail_unique_stat_fine.
+- Explain why bail_unique_fine_desc < bail_unique_stat_fine.
     
-# Records duplicated Count
+- Records duplicated Count
+    ```{r ,echo=TRUE, eval=FALSE} 
     bail_dup_count <- bail %>%
       group_by(Statute, `Base Fine`, `Offense Description`) %>%
       summarise(count = n())
