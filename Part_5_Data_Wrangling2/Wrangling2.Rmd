@@ -44,8 +44,34 @@ filing <- read_excel("../data/MockData.xlsx", sheet = "CourtA-Filing", skip = 1)
 - Clean up the data
     + Remove the hidden column(s)
     + Calculate the Fiscal Year total. How does it compare to the total in the Excel file?
--     
-    ```{r filing_clean, echo=TRUE, eval=FALSE}
+-
+    ```{r filing_clean1, echo=TRUE, eval=FALSE}
+filing_clean <- filing %>%
+      select(- Total) %>%
+      rename( Excel_total = X__1) %>%
+      mutate(total = rowSums(.[2:13]),
+             total_diff = total - Excel_total)
+    
+View(filing_clean)    
+```
+
+    ```{r filing_clean2, echo=TRUE, eval=FALSE}
+# Create a vector to indicate wanted columns
+filing_months <- names(filing)
+filing_months <- filing_months[ -c(1, 11, 15)]
+
+# Create a clean dataset    
+filing_clean <- filing %>%
+      select(- Total) %>%
+      rename( Excel_total = X__1) %>%
+      mutate(total = rowSums(.[filing_months]),
+             total_diff = total - Excel_total)
+    
+View(filing_clean)    
+```
+
+    ```{r filing_clean, echo=TRUE, eval=FALSE, include= FALSE}
+# The grep function is too complicated at this time    
 filing_clean <- filing %>%
       select(- Total) %>%
       rename( Excel_total = X__1) %>%
