@@ -45,7 +45,28 @@ filing <- read_excel("../data/MockData.xlsx", sheet = "CourtA-Filing", skip = 1)
     + Remove the hidden column(s)
     + Calculate the Fiscal Year total. How does it compare to the total in the Excel file?
 -
+    ```{r filing_clean2, echo=TRUE, eval=FALSE}
+# Create a vector to indicate wanted columns
+filing_months <- names(filing)
+filing_months <- filing_months[ -c(1, 11, 15)]
+
+## Create a clean dataset    
+# Use dplyr to remove/rename columns
+filing_clean <- filing %>%
+      select(- Total) %>%
+      rename( Excel_total = X__1) 
+
+# Add new variables to the dataset
+filing_clean$total <- apply(filing_clean[,filing_months], 1, sum) # calc row totals for all months
+        # Note: apply() can be used to calculate either row total or column total
+
+filing_clean$total_diff  <- filing_clean$total - filing_clean$Excel_total
+    
+View(filing_clean)    
+```
+- 
     ```{r filing_clean1, echo=TRUE, eval=FALSE}
+## Create a clean dataset 
 filing_clean <- filing %>%
       select(- Total) %>%
       rename( Excel_total = X__1) %>%
@@ -55,20 +76,6 @@ filing_clean <- filing %>%
 View(filing_clean)    
 ```
 
-    ```{r filing_clean2, echo=TRUE, eval=FALSE}
-# Create a vector to indicate wanted columns
-filing_months <- names(filing)
-filing_months <- filing_months[ -c(1, 11, 15)]
-
-# Create a clean dataset    
-filing_clean <- filing %>%
-      select(- Total) %>%
-      rename( Excel_total = X__1) %>%
-      mutate(total = rowSums(.[filing_months]),
-             total_diff = total - Excel_total)
-    
-View(filing_clean)    
-```
 
     ```{r filing_clean, echo=TRUE, eval=FALSE, include= FALSE}
 # The grep function is too complicated at this time    
