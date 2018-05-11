@@ -91,16 +91,14 @@ filing_months &lt;-<span class="st"> </span><span class="kw">names</span>(filing
 filing_months &lt;-<span class="st"> </span>filing_months[ <span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">11</span>, <span class="dv">15</span>)]
 
 ## Create a clean dataset    
-<span class="co"># Use dplyr to remove/rename columns</span>
-filing_clean &lt;-<span class="st"> </span>filing <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="st"> </span>Total) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">rename</span>( <span class="dt">Excel_total =</span> X__<span class="dv">1</span>) 
 
-<span class="co"># Add new variables to the dataset</span>
+filing_clean &lt;-<span class="st"> </span>filing[, <span class="op">-</span><span class="dv">11</span>] <span class="co"># remove total column</span>
+<span class="kw">names</span>(filing_clean)[<span class="kw">names</span>(filing_clean) <span class="op">==</span><span class="st"> 'X__1'</span>]  &lt;-<span class="st"> 'Excel_total'</span> <span class="co"># change col name</span>
+
 filing_clean<span class="op">$</span>total &lt;-<span class="st"> </span><span class="kw">apply</span>(filing_clean[,filing_months], <span class="dv">1</span>, sum) <span class="co"># calc row totals for all months</span>
     <span class="co"># Note: apply() can be used to calculate either row total or column total</span>
 
-filing_clean<span class="op">$</span>total_diff  &lt;-<span class="st"> </span>filing_clean<span class="op">$</span>total <span class="op">-</span><span class="st"> </span>filing_clean<span class="op">$</span>Excel_total
+filing_clean<span class="op">$</span>total_diff  &lt;-<span class="st"> </span>filing_clean<span class="op">$</span>total <span class="op">-</span><span class="st"> </span>filing_clean<span class="op">$</span>Excel_total <span class="co"># add column</span>
 
 <span class="kw">View</span>(filing_clean)    </code></pre></div></li>
 <li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Create a clean dataset 
