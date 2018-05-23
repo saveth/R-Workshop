@@ -11,6 +11,8 @@ This 8-12 lessons workshop is designed to help staff to become familiar with the
 * Part 3: Reproducibility: Best Practices (folder setup, script formatting, syntax formatting)
 * Part 4: Dplyr basic function for Data Cleaning/Setup
 * Part 5: Data Cleaning: Working with Messy Data
-* Part 6: Strings, Date
-* Part 7: Graphics
-* Part 8: Rmarkdown
+* Part 6: Strings
+* Part 7: Date
+* Part 8: Graphics
+* Part 9: Rmarkdown
+* Part 10: Rmarkdown
