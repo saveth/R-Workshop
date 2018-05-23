@@ -235,9 +235,12 @@ peremp_clean <- peremp_mod %>%
 
 
 ## Exercises
-1. Transform you clean filing data into a long dataset
+### CourtA-Filing Data
+1. Validate the Column total for each month
+2. Transform you clean filing data into a long dataset
     + HINT: it should have three columns: casetype, fiscal_month, filing
 
-2. Please read in the Template data and perform the necessary data cleaning.
+### Template Data
+3. Please read in the Template data and perform the necessary data cleaning.
     + HINT: useful functions: unique(),is.na(), which(), diff()
 

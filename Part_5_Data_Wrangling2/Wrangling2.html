@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <meta name="author" content="Savet Hong" />
-  <meta name="date" content="2018-05-11" />
+  <meta name="date" content="2018-05-23" />
   <title>Data Wrangling Part 2:</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
@@ -56,7 +56,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <p class="author">
 Savet Hong
   </p>
-  <p class="date">May 11, 2018</p>
+  <p class="date">May 23, 2018</p>
 </div>
 <div id="validation" class="titleslide slide section level1"><h1>Validation</h1></div><div id="scenario-court-filing-data" class="slide section level2">
 <h2>Scenario: Court Filing Data</h2>
@@ -248,11 +248,16 @@ peremp_orig2 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<s
 </ol>
 </div><div id="exercises" class="slide section level2">
 <h2>Exercises</h2>
+<h3 id="courta-filing-data">CourtA-Filing Data</h3>
 <ol class="incremental" style="list-style-type: decimal">
+<li>Validate the Column total for each month</li>
 <li>Transform you clean filing data into a long dataset
 <ul class="incremental">
 <li>HINT: it should have three columns: casetype, fiscal_month, filing</li>
 </ul></li>
+</ol>
+<h3 id="template-data">Template Data</h3>
+<ol class="incremental" start="3" style="list-style-type: decimal">
 <li>Please read in the Template data and perform the necessary data cleaning.
 <ul class="incremental">
 <li>HINT: useful functions: unique(),is.na(), which(), diff()</li>
