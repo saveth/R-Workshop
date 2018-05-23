@@ -10,10 +10,9 @@ output:
 ---
 
 ## Exercises
-1. Transform you clean filing data into a long dataset
+1. Validate the Column total for each month
+2. Transform you clean filing data into a long dataset
     + HINT: it should have three columns: casetype, fiscal_month, filing
-
-- During the last session we go to... 
 - 
     ```{r filing, eval=FALSE, echo=TRUE}
 library(readxl)
@@ -30,6 +29,11 @@ filing_clean <- filing %>%
     
 View(filing_clean) 
 ```
+
+- 
+    ```{r col_total, eval=FALSE, echo=TRUE}
+filing_clean
+```    
 
 - Transform the data from wide to long
 - 
