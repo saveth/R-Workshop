@@ -32,7 +32,7 @@ View(filing_clean)
 
 - 
     ```{r col_total, eval=FALSE, echo=TRUE}
-filing_clean
+apply(filing_clean[1:11,-1], 2, sum)
 ```    
 
 - Transform the data from wide to long
