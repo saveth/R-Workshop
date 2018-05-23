@@ -17,6 +17,12 @@ peremp_orig <- read_excel("../data/MockData.xlsx", sheet = "Peremptory_original"
 peremp_orig2 <- read_excel("../data/MockData.xlsx", sheet = "Peremptory_original", skip = 12, col_names = FALSE) 
 peremp_mod <- read_excel("../data/MockData.xlsx", sheet = "Peremptory_modified", skip = 12, col_names = FALSE)
 template <-  read_excel("../data/MockData.xlsx", sheet = "Template")  
+
+##NOTE: this part of the series took three sessions
+##  1. Validation-filing: 1hour
+##  2. Bail: 1.5 hours
+##  3. Peremptory-Template: 1.5 hours
+
 ```
 
 # Validation
