@@ -55,7 +55,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <p class="author">
 Savet Hong
   </p>
-  <p class="date">Apr 20, 2018</p>
+  <p class="date">Jun 12, 2018</p>
 </div>
 <div id="changing-the-data" class="slide section level2">
 <h2>Changing the Data</h2>
@@ -114,7 +114,7 @@ drinks<span class="op">$</span>total_serving =<span class="st"> </span><span cla
 
 <span class="co"># Option 2: Dplyr    </span>
 drinks &lt;-<span class="st"> </span>drinks <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total_serving =</span> <span class="kw">sum</span>(beer_serving<span class="op">:</span>wine_serving))</code></pre></div></li>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total_serving =</span> <span class="kw">rowSums</span>(.[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]))</code></pre></div></li>
 </ul>
 </div>
 <div id="example-2" class="slide section level2">
@@ -126,7 +126,7 @@ total_serving =<span class="st"> </span><span class="kw">apply</span>(drinks[,<s
 
 <span class="co"># Option 2: Dplyr    </span>
  drinks <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise_if</span>(drinks,is.numeric,sum)</code></pre></div></li>
+<span class="st">  </span><span class="kw">summarise_if</span>(is.numeric,sum)</code></pre></div></li>
 </ul>
 </div>
 <div id="scenario-1-find-the-total-serving-of-alcohol-for-three-selected-countries." class="slide section level2">

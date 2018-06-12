@@ -71,7 +71,7 @@ drinks$total_serving = apply(drinks[,2:4], 1, sum)
 
 # Option 2: Dplyr    
 drinks <- drinks %>%
-  mutate(total_serving = sum(beer_serving:wine_serving))
+  mutate(total_serving = rowSums(.[2:4]))
         
 ```
 
@@ -84,7 +84,7 @@ total_serving = apply(drinks[,2:ncol(drinks)], 2, sum)
 
 # Option 2: Dplyr    
  drinks %>%
-  summarise_if(drinks,is.numeric,sum)
+  summarise_if(is.numeric,sum)
         
 ```
 
