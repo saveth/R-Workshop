@@ -1,18 +1,20 @@
 ---
 title: "Data Wrangling Part 2:"
-subtitle: "Undertanding Your Data"
-subtitle: "Exercise Solution"
+subtitle: "Undertanding Your Data: Exercise Solution"
 author: "Savet Hong"
 date: "`r format(Sys.Date(), '%b %d, %Y')`"
 output:
   slidy_presentation:
-  incremental: true
+    incremental: true
 ---
 
 ## Exercises
 1. Validate the Column total for each month
 2. Transform you clean filing data into a long dataset
     + HINT: it should have three columns: casetype, fiscal_month, filing
+
+## Previously
+
 - 
     ```{r filing, eval=FALSE, echo=TRUE}
 library(readxl)
@@ -30,9 +32,13 @@ filing_clean <- filing %>%
 View(filing_clean) 
 ```
 
-- 
+## Current Exercise
+
+- Column Validation
     ```{r col_total, eval=FALSE, echo=TRUE}
 apply(filing_clean[1:11,-1], 2, sum)
+
+View(filing_clean)        
 ```    
 
 - Transform the data from wide to long
@@ -47,10 +53,25 @@ filing_long <- filing_clean %>%
 
 ```
 
-2. Please read in the Template data and perform the necessary data cleaning.
-+ HINT: useful functions: unique(),is.na(), which(), diff()
+## Exercise 2
+- Please read in the Template data and perform the necessary data cleaning.
+    + HINT: useful functions: unique(),is.na(), which(), diff()
 
-```{r template, echo=TRUE, eval=FALSE}
+- What steps needs to be done to clean the data once it's loaded into R?
+    + remove blank/irrelevant columns (bullet cells)
+    + rename columns
+    + add "total" where needed
+    + Expand the categories in column A
+        - Indentify the unique elements
+        - Position between each unique elements
+        - Create a vector with the unique vector expanded equal to the distance between elements
+        - Repopulate or create a new column with the new vector
+    + Remove rows with none relevant data records   
+
+## 
+
+- 
+    ```{r template, echo=TRUE, eval=FALSE}
 # read in the data
 template <-  read_excel("../data/MockData.xlsx", sheet = "Template")  
 
@@ -64,10 +85,10 @@ sapply(template, function(x) all(is.na(x)))
 template_clean <- template %>%
   select(-X__1, -X__3, -X__4) %>%
   rename(process = CaseType, task = X__2) %>%
-  mutate(task = replace(task,is.na(task) & !is.na(`Time per Filing (mins)`),"total"))
+  mutate(task = replace(task,is.na(task) & !is.na(`Time per Filing`),"total"))
 
 # Expand Column A as vector
-unique_process <- template_clean$process[c(which(!is.na(template_clean$process)))] #unique process (in order)
+unique_process <- template_clean$process[which(!is.na(template_clean$process))] #unique process (in order)
 process_pos <- diff(which(!is.na(template_clean$process))) # position/rows between process
 max.pos <- length(unique_process) 
 process_vec <- c(rep(unique_process[-max.pos], process_pos),unique_process[max.pos]) # repeat values until next occurance 
