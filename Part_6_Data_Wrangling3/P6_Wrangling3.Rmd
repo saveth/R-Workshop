@@ -38,7 +38,6 @@ courtb_p2 <- read_excel("../data/MockData.xlsx", sheet = "CourtB-Filing", range 
 
 ## What are some commands that allows appending in R?
 
-- c()
 - rbind()
 - rbind.data.frame()
 - merge()
@@ -52,14 +51,22 @@ library(readxl)
 library(tidyverse)    
 
 courtb_p1 <- read_excel("../data/MockData.xlsx", sheet = "CourtB-Filing", range = "A1:G13")
-courtb_p2 <- read_excel("../data/MockData.xlsx", sheet = "CourtB-Filing", range = "A16:G28")
+courtc_p1 <- read_excel("../data/MockData.xlsx", sheet = "CourtC-Filing", range = "A1:G12")
     
-courtb_cbind <- cbind(courtb_p1, courtb_p2)
-courtb_cbind
+court_rbind <- rbind(courtb_p1, courtc_p1)
+court_rbind
+
+court_merge <- merge(courtb_p1, courtc_p1)
+court_merge
+
+court_merge <- merge(courtb_p1, courtc_p1, all = TRUE)
+court_merge
+
 ```
 
 - What do you observe?
-    + Duplicate variable(s)
+    + Ordering of columns
+    + Number of rows (observations)
     + Ordering of Rows
 
 
@@ -68,17 +75,49 @@ courtb_cbind
 ![](../images/merge_gen_df.jpg)
 
 
+
+## Understanding Merge
+
+![](../images/two_df_circle.jpg)
+
+##
+![](../images/two_df_labels.jpg)
+
+## Everything that **matches** Dataset 1 & 2
+
+![](../images/inner_merge_circle_table.jpg)
+
+
+## Everything from Dataset 1
+![](../images/left_merge_circle_table.jpg)
+
+## Everything from Dataset 2
+![](../images/right_merge_circle_table.jpg)
+
+
+
+## Everything from Dataset 1 & 2
+
+![](../images/full_merge_circle_table.jpg)
+  
+
 ## What are some commands that allows merging in R?
 - Base function
     + cbind()
     + cbind.data.frame()
     + merge()
     + merge.data.frame()
+    
+- Dplyr function
+    + left_join()
+    + right_join()
+    + inner_join()
+    + full_join()    
 
 
 ## Example
-- 
-    ```{r cbind, echo=TRUE, eval=FALSE}
+
+```{r cbind, echo=TRUE, eval=FALSE}
 courtb_p1 <- read_excel("../data/MockData.xlsx", sheet = "CourtB-Filing", range = "A1:G13")
 courtb_p2 <- read_excel("../data/MockData.xlsx", sheet = "CourtB-Filing", range = "A16:G28")
     
@@ -90,13 +129,15 @@ courtb_cbind
     + Duplicate variable(s)
     + Ordering of Rows
 
+## 
 
+- 
     ```{r, echo=TRUE, eval=FALSE}
-View(courtb_p1)
-View(courtb_p2)
-
 courtb <- merge(courtb_p1, courtb_p2)
 courtb <- merge.data.frame(courtb_p1, courtb_p2)
+
+View(courtb)
+
 ```
 
 - What do you observe?
@@ -104,45 +145,40 @@ courtb <- merge.data.frame(courtb_p1, courtb_p2)
     + Ordering of Rows
 
 
+## Try these functions
 
-## Understanding Merge
+```{r, echo=TRUE, eval=FALSE}
+court_c_b <- merge(courtc_p1, courtb_p2)
 
-![](../images/two_df_circle.jpg)
+merge(courtc_p1, courtb_p2, all.x = TRUE)
+left_join(courtc_p1, courtb_p2)
 
-## Everything from Dataset 1
-![](../images/left_merge_circle.jpg)
+merge(courtc_p1, courtb_p2, all.y = TRUE)
+right_join(courtc_p1, courtb_p2)
 
-## Everything from Dataset 2
-![](../images/right_merge_circle.jpg)
-
-## Everything that **matches** Dataset 1 & 2
-
-![](../images/inner_merge_circle.jpg)
-
-## Everything from Dataset 1 & 2
-
-![](../images/full_merge_circle.jpg)
-  
+merge(courtc_p1, courtb_p2, all.x = TRUE, all.y = TRUE)
+full_join(courtc_p1, courtb_p2)
 
 
-## Takes rows by the specified column and puts them together...
-
-
-- Dplyr function
-    ```{r, echo=TRUE, eval=FALSE}
-    
 ```    
 
 
 ## Reference
 
-- Data Wrangling Cheat Sheet (Dplyr and Tidyr)
+- Data Wrangling Cheat Sheet (Dplyr and Tidyr)   
 https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
 
-- Cheatsheet with Examples
+- Cheatsheet with Examples  
 http://stat545.com/bit001_dplyr-cheatsheet.html
 
 
-## Concepts to be Merged
-- Wide
-- Long
+## Concepts Covered
+- Appending data files
+- Merge 
+    + inner
+    + left 
+    + right
+    + full
+- Merge functions built in 
+    + base package
+    + dplyr
