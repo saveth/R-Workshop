@@ -31,14 +31,23 @@ courtb_p2 <- read_excel("../data/MockData.xlsx", sheet = "CourtB-Filing", range 
 
 
 
-## What is this "combining" called?
+## What is this form of "combining" called?
 
 ![](../images/append_df.jpg)
+
+
+## What are some commands that allows appending in R?
+
+- c()
+- rbind()
+- rbind.data.frame()
+- merge()
+
 
 ## Example
 
 - 
-    ```{r cbind, echo=TRUE, eval=FALSE}
+    ```{r append, echo=TRUE, eval=FALSE}
 library(readxl)
 library(tidyverse)    
 
@@ -53,25 +62,35 @@ courtb_cbind
     + Duplicate variable(s)
     + Ordering of Rows
 
-## Understanding the Structure
 
-![](../images/two_df.jpg)
+## What is this form of "combining" called?
 
-## Everything from Dataset 1
-
-## Everything from Dataset 2
-
-## Everything that **matches** Dataset 1 & 2
-
-## Everything from Dataset 1 & 2
+![](../images/merge_gen_df.jpg)
 
 
-  
-
-
-## Takes rows by the specified column and puts them together...
-
+## What are some commands that allows merging in R?
 - Base function
+    + cbind()
+    + cbind.data.frame()
+    + merge()
+    + merge.data.frame()
+
+
+## Example
+- 
+    ```{r cbind, echo=TRUE, eval=FALSE}
+courtb_p1 <- read_excel("../data/MockData.xlsx", sheet = "CourtB-Filing", range = "A1:G13")
+courtb_p2 <- read_excel("../data/MockData.xlsx", sheet = "CourtB-Filing", range = "A16:G28")
+    
+courtb_cbind <- cbind(courtb_p1, courtb_p2)
+courtb_cbind
+```
+
+- What do you observe?
+    + Duplicate variable(s)
+    + Ordering of Rows
+
+
     ```{r, echo=TRUE, eval=FALSE}
 View(courtb_p1)
 View(courtb_p2)
@@ -79,6 +98,35 @@ View(courtb_p2)
 courtb <- merge(courtb_p1, courtb_p2)
 courtb <- merge.data.frame(courtb_p1, courtb_p2)
 ```
+
+- What do you observe?
+    + Duplicate variable(s)
+    + Ordering of Rows
+
+
+
+## Understanding Merge
+
+![](../images/two_df_circle.jpg)
+
+## Everything from Dataset 1
+![](../images/left_merge_circle.jpg)
+
+## Everything from Dataset 2
+![](../images/right_merge_circle.jpg)
+
+## Everything that **matches** Dataset 1 & 2
+
+![](../images/inner_merge_circle.jpg)
+
+## Everything from Dataset 1 & 2
+
+![](../images/full_merge_circle.jpg)
+  
+
+
+## Takes rows by the specified column and puts them together...
+
 
 - Dplyr function
     ```{r, echo=TRUE, eval=FALSE}
