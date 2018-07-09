@@ -8,7 +8,7 @@ output:
       incremental: true
 ---
 
-## Combining Datasets
+## Combining Datasets 
 
 ![](../images/two_df.jpg)
 
@@ -31,7 +31,7 @@ courtb_p2 <- read_excel("../data/MockData.xlsx", sheet = "CourtB-Filing", range 
 
 
 
-## What is this form of "combining" called?
+## What is this form of "combining" called? 
 
 ![](../images/append_df.jpg)
 
@@ -80,23 +80,26 @@ court_merge
 
 ![](../images/two_df_circle.jpg)
 
-##
+
+## {.centered}
 ![](../images/two_df_labels.jpg)
 
-## Everything that **matches** Dataset 1 & 2
+## Everything that **matches** Dataset 1 & 2  
 
 ![](../images/inner_merge_circle_table.jpg)
 
 
-## Everything from Dataset 1
+
+
+## Everything from Dataset 1 
 ![](../images/left_merge_circle_table.jpg)
 
-## Everything from Dataset 2
+## Everything from Dataset 2 
 ![](../images/right_merge_circle_table.jpg)
 
 
 
-## Everything from Dataset 1 & 2
+## Everything from Dataset 1 & 2 
 
 ![](../images/full_merge_circle_table.jpg)
   
