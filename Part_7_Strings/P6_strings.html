@@ -60,20 +60,18 @@ Savet Hong
 <div id="regular-expression" class="slide section level2">
 <h2>Regular Expression</h2>
 <ul class="incremental">
-<li>What is it?</li>
-</ul>
-</div>
-<div id="commands-to-cover" class="slide section level2">
-<h2>Commands to Cover</h2>
+<li>What is it?
 <ul class="incremental">
-<li>substr</li>
-<li>sub/gsub</li>
-<li>grep/grepl</li>
-<li></li>
+<li>sequence of characters
+<ul class="incremental">
+<li>letters, numbers, symbols</li>
+</ul></li>
+<li>operations on strings</li>
+</ul></li>
 </ul>
 </div>
-<div id="example-1-position" class="slide section level2">
-<h2>Example 1 : Position</h2>
+<div id="example-position" class="slide section level2">
+<h2>Example: Position</h2>
 <ul class="incremental">
 <li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> greeting &lt;-<span class="st"> &quot;Hello Team 123&quot;</span></code></pre></div></li>
 <li>Extract by position
@@ -86,32 +84,104 @@ Savet Hong
 <li>requires the text or variable</li>
 <li>starting position of data element (numeric)</li>
 <li>ending position of data element (numeric)</li>
+<li>extract the 11 element</li>
 </ul></li>
-<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(greating)
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nchar</span>(greeting)
 <span class="kw">substr</span>(greeting, <span class="dv">1</span>, <span class="dv">5</span>)
-<span class="kw">substr</span>(greeting)    </code></pre></div></li>
+<span class="kw">substr</span>(greeting, <span class="dv">12</span>, <span class="dv">14</span>)  
+<span class="kw">substr</span>(greeting, <span class="dv">11</span>, <span class="dv">11</span>)  </code></pre></div></li>
 </ul>
 </div>
-<div id="example-2-pattern" class="slide section level2">
-<h2>Example 2: Pattern</h2>
+<div id="what-are-patterns" class="slide section level2">
+<h2>What are patterns?</h2>
+<ul class="incremental">
+<li>one or more character that the program tries to match</li>
+<li>Can be…
+<ul class="incremental">
+<li>literal (Exact Match)</li>
+<li>operators (logic, e.g., and/or )</li>
+<li>constructs (grouping of substring, match part 1, part 2, etc.)</li>
+</ul></li>
+</ul>
+</div>
+<div id="use-grep-or-grepl-functions" class="slide section level2">
+<h2>Use <em>grep()</em> or <em>grepl()</em> functions</h2>
+<ul class="incremental">
+<li>function require
+<ul class="incremental">
+<li>the text or variable</li>
+<li>pattern to search for</li>
+</ul></li>
+<li>funtion output
+<ul class="incremental">
+<li><strong>grep():</strong> a vector of the element position in original vector that matches the pattern</li>
+<li><strong>grepl():</strong> logical vector indicating if each element match the pattern or not</li>
+</ul></li>
+</ul>
+</div>
+<div id="example-exact-pattern" class="slide section level2">
+<h2>Example: Exact Pattern</h2>
 <ul class="incremental">
 <li>Spell out the the word or pattern</li>
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">folks &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Jane&quot;</span>,<span class="st">&quot;John&quot;</span>,<span class="st">&quot;Barry&quot;</span>,<span class="st">&quot;Bill&quot;</span>,<span class="st">&quot;Mill&quot;</span>,<span class="st">&quot;Tom&quot;</span>, <span class="st">&quot;Team123&quot;</span>)    
+<span class="kw">grep</span>(<span class="st">&quot;T&quot;</span>, folks)  
+<span class="kw">grep</span>(<span class="st">&quot;123&quot;</span>, folks)</code></pre></div></li>
 </ul>
 </div>
-<div id="possible-patterns" class="slide section level2">
-<h2>Possible Patterns</h2>
+<div id="section" class="slide section level2">
+<h2></h2>
+<ul class="incremental">
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)
+courtb_p1 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;../data/MockData.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;CourtB-Filing&quot;</span>, <span class="dt">range =</span> <span class="st">&quot;A1:G13&quot;</span>)
+
+var_header &lt;-<span class="st"> </span><span class="kw">names</span>(courtb_p1)
+<span class="kw">grep</span>(<span class="st">&quot;-&quot;</span>, var_header) <span class="co"># Returns the position of element matching the pattern</span>
+<span class="kw">grepl</span>(<span class="st">&quot;-&quot;</span>, var_header) <span class="co"># Returns logic if element matches pattern</span></code></pre></div></li>
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)    
+
+filing &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;../data/MockData.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;CourtA-Filing&quot;</span>, <span class="dt">skip =</span> <span class="dv">1</span>)
+
+filing_clean &lt;-<span class="st"> </span>filing <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="st"> </span>Total) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">rename</span>( <span class="dt">Excel_total =</span> X__<span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> <span class="kw">rowSums</span>(.[<span class="kw">grep</span>(<span class="st">&quot;-&quot;</span>, <span class="kw">names</span>(.))]),
+         <span class="dt">total_diff =</span> total <span class="op">-</span><span class="st"> </span>Excel_total)
+
+<span class="kw">View</span>(filing_clean)    </code></pre></div></li>
+</ul>
+</div>
+<div id="example-logical-pattern" class="slide section level2">
+<h2>Example: Logical Pattern</h2>
+<ul class="incremental">
+<li>Condition in pattern</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;B|M&quot;</span>, folks)
+<span class="kw">grep</span>(<span class="st">&quot;Civil|Criminal&quot;</span>, courtb_p1<span class="op">$</span><span class="st">`</span><span class="dt">Case Type</span><span class="st">`</span>)</code></pre></div>
+</div>
+<div id="non-literal-pattern" class="slide section level2">
+<h2>Non-literal Pattern</h2>
+<ul class="incremental">
+<li>Regular Expression
+<ul class="incremental">
+<li><strong>Characters:</strong> [a-z], [A-Z], [A-z]</li>
+<li><strong>Numbers:</strong> [0-9]</li>
+<li><strong>Punctuation:</strong> [[:punct:]]</li>
+</ul></li>
+</ul>
+</div>
+<div id="special-symbols" class="slide section level2">
+<h2>Special Symbols</h2>
+</div>
+<div id="example-4-pattern" class="slide section level2">
+<h2>Example 4: Pattern</h2>
 <ul class="incremental">
 <li>Characters</li>
-<li>Numeric</li>
-<li>punctuation</li>
 </ul>
 </div>
-<div id="example-3-pattern" class="slide section level2">
-<h2>Example 3: Pattern</h2>
+<div id="example-5-pattern" class="slide section level2">
+<h2>Example 5: Pattern</h2>
 <ul class="incremental">
-<li>use character class</li>
-<li>grep</li>
-<li>grepl</li>
+<li>use regex</li>
 </ul>
 </div>
 <div id="example-4-replacement" class="slide section level2">

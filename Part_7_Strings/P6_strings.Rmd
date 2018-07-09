@@ -14,15 +14,12 @@ output:
 
 ## Regular Expression
 - What is it?
+    + sequence of characters 
+        - letters, numbers, symbols
+    + operations on strings
 
 
-## Commands to Cover
-- substr
-- sub/gsub
-- grep/grepl
-- 
-
-## Example 1 : Position
+## Example: Position
 
 - 
     ```{r ex1_msg, echo =TRUE, eval = FALSE}
@@ -37,30 +34,94 @@ output:
     + requires the text or variable
     + starting position of data element (numeric)
     + ending position of data element (numeric)
+    + extract the 11 element
     
 - 
     ```{r ex1_sub, echo=TRUE, eval=FALSE}
-length(greating)
+nchar(greeting)
 substr(greeting, 1, 5)
-substr(greeting)    
+substr(greeting, 12, 14)  
+substr(greeting, 11, 11)  
 ```
 
-## Example 2: Pattern
- - Spell out the the word or pattern
+## What are patterns?
+- one or more character that the program tries to match
+- Can be...
+    + literal (Exact Match)
+    + operators (logic, e.g., and/or )
+    + constructs (grouping of substring, match part 1, part 2, etc.)
 
-```{r, echo=TRUE, eval=FALSE}
 
+## Use *grep()* or *grepl()* functions
+- function require
+    + the text or variable
+    + pattern to search for
+    
+- funtion output
+    + **grep():** a vector of the element position in original vector that matches the pattern
+    + **grepl():** logical vector indicating if each element match the pattern or not
+
+## Example: Exact Pattern
+- Spell out the the word or pattern
+- 
+    ```{r, echo=TRUE, eval=FALSE}
+folks <- c("Jane","John","Barry","Bill","Mill","Tom", "Team123")    
+grep("T", folks)  
+grep("123", folks)
+
+```    
+
+## 
+
+-    
+    ```{r, echo=TRUE, eval=FALSE}
+library(readxl)
+courtb_p1 <- read_excel("../data/MockData.xlsx", sheet = "CourtB-Filing", range = "A1:G13")
+
+var_header <- names(courtb_p1)
+grep("-", var_header) # Returns the position of element matching the pattern
+grepl("-", var_header) # Returns logic if element matches pattern
 ```
 
-## Possible Patterns
-- Characters
-- Numeric
-- punctuation
+-  
+    ```{r filing_clean, echo=TRUE, eval=FALSE}
+library(tidyverse)    
 
-## Example 3: Pattern
-- use character class
-- grep
-- grepl
+filing <- read_excel("../data/MockData.xlsx", sheet = "CourtA-Filing", skip = 1)
+
+filing_clean <- filing %>%
+      select(- Total) %>%
+      rename( Excel_total = X__1) %>%
+      mutate(total = rowSums(.[grep("-", names(.))]),
+             total_diff = total - Excel_total)
+    
+View(filing_clean)    
+```
+
+
+## Example: Logical Pattern
+- Condition in pattern
+```{r,  echo=TRUE, eval=FALSE}
+grep("B|M", folks)
+grep("Civil|Criminal", courtb_p1$`Case Type`)
+```
+
+## Non-literal Pattern
+- Regular Expression
+    + **Characters:** [a-z], [A-Z], [A-z]
+    + **Numbers:** [0-9]
+    + **Punctuation:** [[:punct:]]
+
+## Special Symbols
+
+
+## Example 4: Pattern
+ - Characters
+
+
+## Example 5: Pattern
+- use regex
+
 
 ```{r, echo=TRUE, eval=FALSE}
 
@@ -73,16 +134,6 @@ substr(greeting)
 
 ```
 
-    ```{r filing_clean, echo=TRUE, eval=FALSE, include= FALSE}
-# The grep function is too complicated at this time    
-filing_clean <- filing %>%
-      select(- Total) %>%
-      rename( Excel_total = X__1) %>%
-      mutate(total = rowSums(.[grep("-", names(.))]),
-             total_diff = total - Excel_total)
-    
-View(filing_clean)    
-```
 
 ## Reference
 
