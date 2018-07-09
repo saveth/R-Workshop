@@ -1,6 +1,6 @@
 ---
-title: "Data Wrangling Part 3:"
-subtitle: "Strings and Dates"
+title: "Data Wrangling Part 4:"
+subtitle: "Strings"
 author: "Savet Hong"
 date: "`r format(Sys.Date(), '%b %d, %Y')`"
 output:
@@ -12,7 +12,86 @@ output:
 
 ```
 
+## Regular Expression
+- What is it?
+
+
+## Commands to Cover
+- substr
+- sub/gsub
+- grep/grepl
+- 
+
+## Example 1 : Position
+
+- 
+    ```{r ex1_msg, echo =TRUE, eval = FALSE}
+ greeting <- "Hello Team 123"
+```    
+
+- Extract by position
+    + First 5 letters
+    + last 3 characters (numbers)
+    
+- Use *substr()* function
+    + requires the text or variable
+    + starting position of data element (numeric)
+    + ending position of data element (numeric)
+    
+- 
+    ```{r ex1_sub, echo=TRUE, eval=FALSE}
+length(greating)
+substr(greeting, 1, 5)
+substr(greeting)    
+```
+
+## Example 2: Pattern
+ - Spell out the the word or pattern
+
+```{r, echo=TRUE, eval=FALSE}
+
+```
+
+## Possible Patterns
+- Characters
+- Numeric
+- punctuation
+
+## Example 3: Pattern
+- use character class
+- grep
+- grepl
+
+```{r, echo=TRUE, eval=FALSE}
+
+```
+
+## Example 4: Replacement
+- sub
+- gsub
+```{r, echo=TRUE, eval=FALSE}
+
+```
+
+    ```{r filing_clean, echo=TRUE, eval=FALSE, include= FALSE}
+# The grep function is too complicated at this time    
+filing_clean <- filing %>%
+      select(- Total) %>%
+      rename( Excel_total = X__1) %>%
+      mutate(total = rowSums(.[grep("-", names(.))]),
+             total_diff = total - Excel_total)
+    
+View(filing_clean)    
+```
+
+## Reference
+
+- Regular Expression Cheat Sheet    
+https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf
+
+
 ## Concepts to be covered
-- extract by position
-- replace by position
-- Regular Expression
+- Character Class
+- Locate character match
+- Extract by position
+- Replace by position
