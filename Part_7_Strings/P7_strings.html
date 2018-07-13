@@ -55,7 +55,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <p class="author">
 Savet Hong
   </p>
-  <p class="date">Jul 09, 2018</p>
+  <p class="date">Jul 13, 2018</p>
 </div>
 <div id="regular-expression" class="slide section level2">
 <h2>Regular Expression</h2>
@@ -78,13 +78,13 @@ Savet Hong
 <ul class="incremental">
 <li>First 5 letters</li>
 <li>last 3 characters (numbers)</li>
+<li>extract the 11 element</li>
 </ul></li>
-<li>Use <em>substr()</em> function
+<li>Use <strong><em>substr()</em></strong> function
 <ul class="incremental">
 <li>requires the text or variable</li>
 <li>starting position of data element (numeric)</li>
 <li>ending position of data element (numeric)</li>
-<li>extract the 11 element</li>
 </ul></li>
 <li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nchar</span>(greeting)
 <span class="kw">substr</span>(greeting, <span class="dv">1</span>, <span class="dv">5</span>)
@@ -141,36 +141,50 @@ var_header &lt;-<span class="st"> </span><span class="kw">names</span>(courtb_p1
 
 filing &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;../data/MockData.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;CourtA-Filing&quot;</span>, <span class="dt">skip =</span> <span class="dv">1</span>)
 
-filing_clean &lt;-<span class="st"> </span>filing <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="st"> </span>Total) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">rename</span>( <span class="dt">Excel_total =</span> X__<span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total =</span> <span class="kw">rowSums</span>(.[<span class="kw">grep</span>(<span class="st">&quot;-&quot;</span>, <span class="kw">names</span>(.))]),
-         <span class="dt">total_diff =</span> total <span class="op">-</span><span class="st"> </span>Excel_total)
-
-<span class="kw">View</span>(filing_clean)    </code></pre></div></li>
+filing[<span class="kw">grep</span>(<span class="st">&quot;-&quot;</span>, <span class="kw">names</span>(filing))]</code></pre></div></li>
 </ul>
+</div>
+<div id="notice-the-difference" class="slide section level2">
+<h2>Notice the difference?</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">filing_clean &lt;-<span class="st"> </span>filing <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">select</span>(<span class="op">-</span><span class="st"> </span>Total) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">rename</span>( <span class="dt">Excel_total =</span> X__<span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">mutate</span>(<span class="dt">total =</span> <span class="kw">rowSums</span>(.[<span class="dv">2</span><span class="op">:</span><span class="dv">13</span>]),
+             <span class="dt">total_diff =</span> total <span class="op">-</span><span class="st"> </span>Excel_total)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">filing_clean &lt;-<span class="st"> </span>filing <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">select</span>(<span class="op">-</span><span class="st"> </span>Total) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">rename</span>( <span class="dt">Excel_total =</span> X__<span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw">mutate</span>(<span class="dt">total =</span> <span class="kw">rowSums</span>(.[<span class="kw">grep</span>(<span class="st">&quot;-&quot;</span>, <span class="kw">names</span>(.))]),
+             <span class="dt">total_diff =</span> total <span class="op">-</span><span class="st"> </span>Excel_total)
+    
+<span class="kw">View</span>(filing_clean)    </code></pre></div>
 </div>
 <div id="example-logical-pattern" class="slide section level2">
 <h2>Example: Logical Pattern</h2>
 <ul class="incremental">
-<li>Condition in pattern</li>
-</ul>
+<li><p>Condition in pattern</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;B|M&quot;</span>, folks)
-<span class="kw">grep</span>(<span class="st">&quot;Civil|Criminal&quot;</span>, courtb_p1<span class="op">$</span><span class="st">`</span><span class="dt">Case Type</span><span class="st">`</span>)</code></pre></div>
+<span class="kw">grep</span>(<span class="st">&quot;Civil|Criminal&quot;</span>, courtb_p1<span class="op">$</span><span class="st">`</span><span class="dt">Case Type</span><span class="st">`</span>)</code></pre></div></li>
+</ul>
 </div>
 <div id="non-literal-pattern" class="slide section level2">
 <h2>Non-literal Pattern</h2>
 <ul class="incremental">
-<li>Regular Expression
-<ul class="incremental">
 <li><strong>Characters:</strong> [a-z], [A-Z], [A-z]</li>
 <li><strong>Numbers:</strong> [0-9]</li>
 <li><strong>Punctuation:</strong> [[:punct:]]</li>
-</ul></li>
 </ul>
 </div>
-<div id="special-symbols" class="slide section level2">
-<h2>Special Symbols</h2>
+<div id="special-matching-symbols" class="slide section level2">
+<h2>Special Matching Symbols</h2>
+<p>| either or<br />
+. any character<br />
+* match at least 0<br />
++ match at least 1<br />
+? match at most 1 time</p>
+<ul class="incremental">
+<li>Pattern anchors ^ $ \b</li>
+</ul>
 </div>
 <div id="example-4-pattern" class="slide section level2">
 <h2>Example 4: Pattern</h2>
