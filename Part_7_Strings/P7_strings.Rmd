@@ -29,12 +29,13 @@ output:
 - Extract by position
     + First 5 letters
     + last 3 characters (numbers)
+    + extract the 11 element
     
-- Use *substr()* function
+- Use **_substr()_** function
     + requires the text or variable
     + starting position of data element (numeric)
     + ending position of data element (numeric)
-    + extract the 11 element
+    
     
 - 
     ```{r ex1_sub, echo=TRUE, eval=FALSE}
@@ -89,6 +90,22 @@ library(tidyverse)
 
 filing <- read_excel("../data/MockData.xlsx", sheet = "CourtA-Filing", skip = 1)
 
+filing[grep("-", names(filing))]
+
+```
+
+## Notice the difference? 
+```{r filing1, echo=TRUE, eval=FALSE}
+
+filing_clean <- filing %>%
+      select(- Total) %>%
+      rename( Excel_total = X__1) %>%
+      mutate(total = rowSums(.[2:13]),
+             total_diff = total - Excel_total)
+```
+
+
+```{r filing2, echo=TRUE, eval=FALSE}
 filing_clean <- filing %>%
       select(- Total) %>%
       rename( Excel_total = X__1) %>%
@@ -100,19 +117,30 @@ View(filing_clean)
 
 
 ## Example: Logical Pattern
-- Condition in pattern
-```{r,  echo=TRUE, eval=FALSE}
+- Condition in pattern 
+    ```{r,  echo=TRUE, eval=FALSE}
 grep("B|M", folks)
 grep("Civil|Criminal", courtb_p1$`Case Type`)
 ```
 
 ## Non-literal Pattern
-- Regular Expression
-    + **Characters:** [a-z], [A-Z], [A-z]
-    + **Numbers:** [0-9]
-    + **Punctuation:** [[:punct:]]
 
-## Special Symbols
+- **Characters:** [a-z], [A-Z], [A-z]
+- **Numbers:** [0-9]
+- **Punctuation:** [[:punct:]]
+
+## Special Matching Symbols
+
+  | either or  
+  . any character     
+  * match at least 0  
+  + match at least 1  
+  ? match at most 1 time
+
+- Pattern anchors
+^
+$
+\\b
 
 
 ## Example 4: Pattern
