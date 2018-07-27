@@ -16,8 +16,23 @@ output:
 - What is it?
     + sequence of characters 
         - letters, numbers, symbols
+        - string objects
     + operations on strings
+    
+- Types of Operations
+    + Extract by position
+    + Extract by Pattern 
+        - exact
+        - pattern
+        
+## Extract by position
 
+- Use **_substr()_** function
+    + **_substr(x, start, stop)_**
+    + **x:** the text or variable to apply function on
+    + **start:** starting position of data element (numeric) extract
+    + **stop:** ending/last position of data element (numeric) extract
+    
 
 ## Example: Position
 
@@ -26,16 +41,11 @@ output:
  greeting <- "Hello Team 123"
 ```    
 
-- Extract by position
+- What to extract:
     + First 5 letters
     + last 3 characters (numbers)
     + extract the 11 element
-    
-- Use **_substr()_** function
-    + requires the text or variable
-    + starting position of data element (numeric)
-    + ending position of data element (numeric)
-    
+    + hint : use **nchar()** first
     
 - 
     ```{r ex1_sub, echo=TRUE, eval=FALSE}
@@ -45,8 +55,10 @@ substr(greeting, 12, 14)
 substr(greeting, 11, 11)  
 ```
 
-## What are patterns?
-- one or more character that the program tries to match
+## Extract by Pattern
+
+- What are patterns?
+- One or more character that the program tries to match
 - Can be...
     + literal (Exact Match)
     + operators (logic, e.g., and/or )
@@ -54,39 +66,56 @@ substr(greeting, 11, 11)
 
 
 ## Use *grep()* or *grepl()* functions
+- fuction format
+    + **grep(pattern, x):**
+    + **grepl(pattern, x):**
 - function require
-    + the text or variable
     + pattern to search for
-    
+    + the character (string) vector within which to perform the search
+
 - funtion output
     + **grep():** a vector of the element position in original vector that matches the pattern
     + **grepl():** logical vector indicating if each element match the pattern or not
 
 ## Example: Exact Pattern
-- Spell out the the word or pattern
+
 - 
     ```{r, echo=TRUE, eval=FALSE}
 folks <- c("Jane","John","Barry","Bill","Mill","Tom", "Team123")    
+```
+
+- Find the element(s) in the vector that contains the following word or pattern:
+    + "T"
+    + "123"
+- 
+    ```{r, echo=TRUE, eval=FALSE}
 grep("T", folks)  
 grep("123", folks)
 
 ```    
 
-## 
+## Example: Mock Filing Data
 
 -    
     ```{r, echo=TRUE, eval=FALSE}
 library(readxl)
+library(tidyverse)  
+    
 courtb_p1 <- read_excel("../data/MockData.xlsx", sheet = "CourtB-Filing", range = "A1:G13")
+```
 
+- Identify column/variable names that contains "-"
+- 
+    ```{r, echo=TRUE, eval=FALSE}
 var_header <- names(courtb_p1)
 grep("-", var_header) # Returns the position of element matching the pattern
 grepl("-", var_header) # Returns logic if element matches pattern
 ```
 
+- What do you observe in the following?
 -  
     ```{r filing_clean, echo=TRUE, eval=FALSE}
-library(tidyverse)    
+  
 
 filing <- read_excel("../data/MockData.xlsx", sheet = "CourtA-Filing", skip = 1)
 
@@ -102,6 +131,8 @@ filing_clean <- filing %>%
       rename( Excel_total = X__1) %>%
       mutate(total = rowSums(.[2:13]),
              total_diff = total - Excel_total)
+
+View(filing_clean) 
 ```
 
 
@@ -116,11 +147,26 @@ View(filing_clean)
 ```
 
 
-## Example: Logical Pattern
+## Logical Pattern
 - Condition in pattern 
+- Used with special symbol
+
+## Example: Logical Pattern
+- Use the symbol, "|", to specify either or
+- In the object, folks, identify:
+    + which element starts with a B or  an M?
+    + who are they?
+- 
     ```{r,  echo=TRUE, eval=FALSE}
 grep("B|M", folks)
+folks[grep("B|M", folks)]    
+```
+- In the dataframe, courtb_1, identify:
+    + which casetype contains the word Civil or Criminal?
+- 
+    ```{r,  echo=TRUE, eval=FALSE}    
 grep("Civil|Criminal", courtb_p1$`Case Type`)
+courtb_p1$`Case Type`[grep("Civil|Criminal", courtb_p1$`Case Type`)]    
 ```
 
 ## Non-literal Pattern
@@ -129,33 +175,71 @@ grep("Civil|Criminal", courtb_p1$`Case Type`)
 - **Numbers:** [0-9]
 - **Punctuation:** [[:punct:]]
 
+## Example: Non-literal
+- In the object, folks, identify:
+    + which element contains characters a-c?
+    + which character contains characters e, o, m?
+    + who are they?
+    
+- 
+    ```{r,  echo=TRUE, eval=FALSE}
+grep("[a-c]", folks)
+folks[grep("[a-c]", folks)] 
+
+folks[grep("[eom]", folks)]
+```    
+
+- 
+    + which element in folks contains numeric value?
+    + who are they?
+    
+- 
+    ```{r,  echo=TRUE, eval=FALSE}
+grep("[0-9]", folks)
+folks[grep("[0-9]", folks)]    
+``` 
+
+
+
 ## Special Matching Symbols
 
   | either or  
   . any character     
   * match at least 0  
   + match at least 1  
-  ? match at most 1 time
+  ? match at most 1 time  
+  () grouping
 
-- Pattern anchors
-^
-$
-\\b
+## Anchor Symbols
 
-
-## Example 4: Pattern
- - Characters
+  ^   start of the string  
+  $   end of the string  
+  \\b empty string at either end of the word
 
 
-## Example 5: Pattern
-- use regex
+## Example: Special Symbols
+
+- 
+    ```{r, echo=TRUE, eval=FALSE}
+address <- read_excel("../data/MockData.xlsx", sheet = "Address")    
+```
+
+- Extract and save into new variables:
+    + postal address
+    + street name
+    + units/suite number
+- 
+    ```{r,  echo=TRUE, eval=FALSE}    
+address2 <- address %>%
+      mutate(postal = )
+```
 
 
 ```{r, echo=TRUE, eval=FALSE}
 
 ```
 
-## Example 4: Replacement
+## Replacement
 - sub
 - gsub
 ```{r, echo=TRUE, eval=FALSE}
@@ -174,3 +258,15 @@ https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf
 - Locate character match
 - Extract by position
 - Replace by position
+
+
+## Exercises
+### CourtA-Filing Data
+1. Index the Case Type that contains the word "Mental" 
+2. Identify and extract Case Type that contains punctuations
+3. Create a subset dataframe with columns containing numbers in the variable name
+
+### Bail Data
+1. Extract the first two character of the variable Statute and save it to a new variable, "statute_type"
+2. Extract all the numerical value in Statue (not in parentheses) and save it to a new variable, "statue_code"
+3. Extract all values in parenthese under Statute and save it to a new variable, "statute_sub_code"

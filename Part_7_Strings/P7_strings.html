@@ -55,7 +55,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <p class="author">
 Savet Hong
   </p>
-  <p class="date">Jul 13, 2018</p>
+  <p class="date">Jul 27, 2018</p>
 </div>
 <div id="regular-expression" class="slide section level2">
 <h2>Regular Expression</h2>
@@ -65,8 +65,30 @@ Savet Hong
 <li>sequence of characters
 <ul class="incremental">
 <li>letters, numbers, symbols</li>
+<li>string objects</li>
 </ul></li>
 <li>operations on strings</li>
+</ul></li>
+<li>Types of Operations
+<ul class="incremental">
+<li>Extract by position</li>
+<li>Extract by Pattern
+<ul class="incremental">
+<li>exact</li>
+<li>pattern</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="extract-by-position" class="slide section level2">
+<h2>Extract by position</h2>
+<ul class="incremental">
+<li>Use <strong><em>substr()</em></strong> function
+<ul class="incremental">
+<li><strong><em>substr(x, start, stop)</em></strong></li>
+<li><strong>x:</strong> the text or variable to apply function on</li>
+<li><strong>start:</strong> starting position of data element (numeric) extract</li>
+<li><strong>stop:</strong> ending/last position of data element (numeric) extract</li>
 </ul></li>
 </ul>
 </div>
@@ -74,17 +96,12 @@ Savet Hong
 <h2>Example: Position</h2>
 <ul class="incremental">
 <li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> greeting &lt;-<span class="st"> &quot;Hello Team 123&quot;</span></code></pre></div></li>
-<li>Extract by position
+<li>What to extract:
 <ul class="incremental">
 <li>First 5 letters</li>
 <li>last 3 characters (numbers)</li>
 <li>extract the 11 element</li>
-</ul></li>
-<li>Use <strong><em>substr()</em></strong> function
-<ul class="incremental">
-<li>requires the text or variable</li>
-<li>starting position of data element (numeric)</li>
-<li>ending position of data element (numeric)</li>
+<li>hint : use <strong>nchar()</strong> first</li>
 </ul></li>
 <li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nchar</span>(greeting)
 <span class="kw">substr</span>(greeting, <span class="dv">1</span>, <span class="dv">5</span>)
@@ -92,10 +109,11 @@ Savet Hong
 <span class="kw">substr</span>(greeting, <span class="dv">11</span>, <span class="dv">11</span>)  </code></pre></div></li>
 </ul>
 </div>
-<div id="what-are-patterns" class="slide section level2">
-<h2>What are patterns?</h2>
+<div id="extract-by-pattern" class="slide section level2">
+<h2>Extract by Pattern</h2>
 <ul class="incremental">
-<li>one or more character that the program tries to match</li>
+<li>What are patterns?</li>
+<li>One or more character that the program tries to match</li>
 <li>Can be…
 <ul class="incremental">
 <li>literal (Exact Match)</li>
@@ -107,10 +125,15 @@ Savet Hong
 <div id="use-grep-or-grepl-functions" class="slide section level2">
 <h2>Use <em>grep()</em> or <em>grepl()</em> functions</h2>
 <ul class="incremental">
+<li>fuction format
+<ul class="incremental">
+<li><strong>grep(pattern, x):</strong></li>
+<li><strong>grepl(pattern, x):</strong></li>
+</ul></li>
 <li>function require
 <ul class="incremental">
-<li>the text or variable</li>
 <li>pattern to search for</li>
+<li>the character (string) vector within which to perform the search</li>
 </ul></li>
 <li>funtion output
 <ul class="incremental">
@@ -122,24 +145,29 @@ Savet Hong
 <div id="example-exact-pattern" class="slide section level2">
 <h2>Example: Exact Pattern</h2>
 <ul class="incremental">
-<li>Spell out the the word or pattern</li>
-<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">folks &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Jane&quot;</span>,<span class="st">&quot;John&quot;</span>,<span class="st">&quot;Barry&quot;</span>,<span class="st">&quot;Bill&quot;</span>,<span class="st">&quot;Mill&quot;</span>,<span class="st">&quot;Tom&quot;</span>, <span class="st">&quot;Team123&quot;</span>)    
-<span class="kw">grep</span>(<span class="st">&quot;T&quot;</span>, folks)  
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">folks &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Jane&quot;</span>,<span class="st">&quot;John&quot;</span>,<span class="st">&quot;Barry&quot;</span>,<span class="st">&quot;Bill&quot;</span>,<span class="st">&quot;Mill&quot;</span>,<span class="st">&quot;Tom&quot;</span>, <span class="st">&quot;Team123&quot;</span>)    </code></pre></div></li>
+<li>Find the element(s) in the vector that contains the following word or pattern:
+<ul class="incremental">
+<li>“T”</li>
+<li>“123”</li>
+</ul></li>
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;T&quot;</span>, folks)  
 <span class="kw">grep</span>(<span class="st">&quot;123&quot;</span>, folks)</code></pre></div></li>
 </ul>
 </div>
-<div id="section" class="slide section level2">
-<h2></h2>
+<div id="example-mock-filing-data" class="slide section level2">
+<h2>Example: Mock Filing Data</h2>
 <ul class="incremental">
 <li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)
-courtb_p1 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;../data/MockData.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;CourtB-Filing&quot;</span>, <span class="dt">range =</span> <span class="st">&quot;A1:G13&quot;</span>)
+<span class="kw">library</span>(tidyverse)  
 
-var_header &lt;-<span class="st"> </span><span class="kw">names</span>(courtb_p1)
+courtb_p1 &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;../data/MockData.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;CourtB-Filing&quot;</span>, <span class="dt">range =</span> <span class="st">&quot;A1:G13&quot;</span>)</code></pre></div></li>
+<li>Identify column/variable names that contains “-”</li>
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">var_header &lt;-<span class="st"> </span><span class="kw">names</span>(courtb_p1)
 <span class="kw">grep</span>(<span class="st">&quot;-&quot;</span>, var_header) <span class="co"># Returns the position of element matching the pattern</span>
 <span class="kw">grepl</span>(<span class="st">&quot;-&quot;</span>, var_header) <span class="co"># Returns logic if element matches pattern</span></code></pre></div></li>
-<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)    
-
-filing &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;../data/MockData.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;CourtA-Filing&quot;</span>, <span class="dt">skip =</span> <span class="dv">1</span>)
+<li>What do you observe in the following?</li>
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">filing &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;../data/MockData.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;CourtA-Filing&quot;</span>, <span class="dt">skip =</span> <span class="dv">1</span>)
 
 filing[<span class="kw">grep</span>(<span class="st">&quot;-&quot;</span>, <span class="kw">names</span>(filing))]</code></pre></div></li>
 </ul>
@@ -150,7 +178,9 @@ filing[<span class="kw">grep</span>(<span class="st">&quot;-&quot;</span>, <span
 <span class="st">      </span><span class="kw">select</span>(<span class="op">-</span><span class="st"> </span>Total) <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw">rename</span>( <span class="dt">Excel_total =</span> X__<span class="dv">1</span>) <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw">mutate</span>(<span class="dt">total =</span> <span class="kw">rowSums</span>(.[<span class="dv">2</span><span class="op">:</span><span class="dv">13</span>]),
-             <span class="dt">total_diff =</span> total <span class="op">-</span><span class="st"> </span>Excel_total)</code></pre></div>
+             <span class="dt">total_diff =</span> total <span class="op">-</span><span class="st"> </span>Excel_total)
+
+<span class="kw">View</span>(filing_clean) </code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">filing_clean &lt;-<span class="st"> </span>filing <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw">select</span>(<span class="op">-</span><span class="st"> </span>Total) <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw">rename</span>( <span class="dt">Excel_total =</span> X__<span class="dv">1</span>) <span class="op">%&gt;%</span>
@@ -159,12 +189,30 @@ filing[<span class="kw">grep</span>(<span class="st">&quot;-&quot;</span>, <span
     
 <span class="kw">View</span>(filing_clean)    </code></pre></div>
 </div>
+<div id="logical-pattern" class="slide section level2">
+<h2>Logical Pattern</h2>
+<ul class="incremental">
+<li>Condition in pattern</li>
+<li>Used with special symbol</li>
+</ul>
+</div>
 <div id="example-logical-pattern" class="slide section level2">
 <h2>Example: Logical Pattern</h2>
 <ul class="incremental">
-<li><p>Condition in pattern</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;B|M&quot;</span>, folks)
-<span class="kw">grep</span>(<span class="st">&quot;Civil|Criminal&quot;</span>, courtb_p1<span class="op">$</span><span class="st">`</span><span class="dt">Case Type</span><span class="st">`</span>)</code></pre></div></li>
+<li>Use the symbol, “|”, to specify either or</li>
+<li>In the object, folks, identify:
+<ul class="incremental">
+<li>which element starts with a B or an M?</li>
+<li>who are they?</li>
+</ul></li>
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;B|M&quot;</span>, folks)
+folks[<span class="kw">grep</span>(<span class="st">&quot;B|M&quot;</span>, folks)]    </code></pre></div></li>
+<li>In the dataframe, courtb_1, identify:
+<ul class="incremental">
+<li>which casetype contains the word Civil or Criminal?</li>
+</ul></li>
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;Civil|Criminal&quot;</span>, courtb_p1<span class="op">$</span><span class="st">`</span><span class="dt">Case Type</span><span class="st">`</span>)
+courtb_p1<span class="op">$</span><span class="st">`</span><span class="dt">Case Type</span><span class="st">`</span>[<span class="kw">grep</span>(<span class="st">&quot;Civil|Criminal&quot;</span>, courtb_p1<span class="op">$</span><span class="st">`</span><span class="dt">Case Type</span><span class="st">`</span>)]    </code></pre></div></li>
 </ul>
 </div>
 <div id="non-literal-pattern" class="slide section level2">
@@ -175,6 +223,27 @@ filing[<span class="kw">grep</span>(<span class="st">&quot;-&quot;</span>, <span
 <li><strong>Punctuation:</strong> [[:punct:]]</li>
 </ul>
 </div>
+<div id="example-non-literal" class="slide section level2">
+<h2>Example: Non-literal</h2>
+<ul class="incremental">
+<li>In the object, folks, identify:
+<ul class="incremental">
+<li>which element contains characters a-c?</li>
+<li>which character contains characters e, o, m?</li>
+<li>who are they?</li>
+</ul></li>
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;[a-c]&quot;</span>, folks)
+folks[<span class="kw">grep</span>(<span class="st">&quot;[a-c]&quot;</span>, folks)] 
+
+folks[<span class="kw">grep</span>(<span class="st">&quot;[eom]&quot;</span>, folks)]</code></pre></div></li>
+<li><ul class="incremental">
+<li>which element in folks contains numeric value?</li>
+<li>who are they?</li>
+</ul></li>
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;[0-9]&quot;</span>, folks)
+folks[<span class="kw">grep</span>(<span class="st">&quot;[0-9]&quot;</span>, folks)]    </code></pre></div></li>
+</ul>
+</div>
 <div id="special-matching-symbols" class="slide section level2">
 <h2>Special Matching Symbols</h2>
 <p>| either or<br />
@@ -182,18 +251,15 @@ filing[<span class="kw">grep</span>(<span class="st">&quot;-&quot;</span>, <span
 * match at least 0<br />
 + match at least 1<br />
 ? match at most 1 time</p>
-<ul class="incremental">
-<li>Pattern anchors ^ $ \b</li>
-</ul>
 </div>
-<div id="example-4-pattern" class="slide section level2">
-<h2>Example 4: Pattern</h2>
-<ul class="incremental">
-<li>Characters</li>
-</ul>
+<div id="anchor-symbols" class="slide section level2">
+<h2>Anchor Symbols</h2>
+<p>^ start of the string<br />
+$ end of the string<br />
+\b empty string at either end of the word</p>
 </div>
-<div id="example-5-pattern" class="slide section level2">
-<h2>Example 5: Pattern</h2>
+<div id="example-special-symbols" class="slide section level2">
+<h2>Example: Special Symbols</h2>
 <ul class="incremental">
 <li>use regex</li>
 </ul>
