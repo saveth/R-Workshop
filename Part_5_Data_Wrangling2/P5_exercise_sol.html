@@ -55,7 +55,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <p class="author">
 Savet Hong
   </p>
-  <p class="date">Jun 12, 2018</p>
+  <p class="date">Jul 30, 2018</p>
 </div>
 <div id="exercises" class="slide section level2">
 <h2>Exercises</h2>
@@ -95,7 +95,7 @@ filing_clean &lt;-<span class="st"> </span>filing <span class="op">%&gt;%</span>
 <li>Transform the data from wide to long</li>
 <li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">filing_long &lt;-<span class="st"> </span>filing_clean <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="co">#select(-Excel_total, -total,total_diff) %&gt;% # remove explicit columns</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="st">`</span><span class="dt">Case Type</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">Jun-18</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># keep explicit columns</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="st">`</span><span class="dt">Case Type</span><span class="st">`</span><span class="op">:</span><span class="st">`</span><span class="dt">Jun-18</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># keep range of columns</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="st">`</span><span class="dt">Case Type</span><span class="st">`</span> <span class="op">!=</span><span class="st"> &quot;FILING TOTALS:&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">gather</span>(Fiscal_Month, filing, <span class="op">-</span><span class="st">`</span><span class="dt">Case Type</span><span class="st">`</span>)</code></pre></div></li>
 </ul>

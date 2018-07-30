@@ -47,7 +47,7 @@ View(filing_clean)
 
 filing_long <- filing_clean %>%
   #select(-Excel_total, -total,total_diff) %>% # remove explicit columns
-  select(`Case Type`:`Jun-18`) %>% # keep explicit columns
+  select(`Case Type`:`Jun-18`) %>% # keep range of columns
   filter(`Case Type` != "FILING TOTALS:") %>%
   gather(Fiscal_Month, filing, -`Case Type`)
 
