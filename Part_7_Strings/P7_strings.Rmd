@@ -171,8 +171,8 @@ courtb_p1$`Case Type`[grep("Civil|Criminal", courtb_p1$`Case Type`)]
 
 ## Non-literal Pattern
 
-- **Characters:** [a-z], [A-Z], [A-z]
-- **Numbers:** [0-9]
+- **Characters:** [a-z], [A-Z], [A-z], [[:alpha:]]
+- **Numbers:** [0-9], [[:digit:]]
 - **Punctuation:** [[:punct:]]
 
 ## Example: Non-literal
@@ -223,29 +223,60 @@ folks[grep("[0-9]", folks)]
     ```{r, echo=TRUE, eval=FALSE}
 address <- read_excel("../data/MockData.xlsx", sheet = "Address")    
 ```
+- Use numerical pattern and anchors to identify elements containing:
+    + postal code
+    + suites
+- Use character pattern to identify elements containing:
+    + street names
 
-- Extract and save into new variables:
-    + postal address
-    + street name
-    + units/suite number
 - 
-    ```{r,  echo=TRUE, eval=FALSE}    
-address2 <- address %>%
-      mutate(postal = )
-```
+    ```{r, echo=TRUE, eval=FALSE}
+# Identify elements that starts with numerics
+grepl("^[0-9]", address$Address)
 
+# Identify elements that ends with numerics    
+grepl("[0-9]$", address$Address)
 
-```{r, echo=TRUE, eval=FALSE}
+# Identify elements that contains character
+grepl("[Z-a]", address$Address)
 
 ```
 
 ## Replacement
-- sub
-- gsub
-```{r, echo=TRUE, eval=FALSE}
+
+## Use *sub()* or *gsub()* functions
+- fuction format
+    + **sub(pattern, replacement, x):**
+    + **gsub(pattern, replacement, x):**
+- function require
+    + pattern to search for
+    + character to replace match
+    + the character (string) vector within which to perform the search
+
+- funtion output
+    + **sub():** replace first match in each element of vector, x, that matches the pattern
+    + **gsub():** replace all match in each element of vector, x, that matches the pattern
+
+- 
+    ```{r, echo=TRUE, eval=FALSE}
+folks
+sub("l", "BA", folks)
+gsub("l", "BA", folks)
 
 ```
 
+## Example: Replacement
+
+- Extract and save into new variables:
+    + postal address
+    + street name
+- 
+    ```{r,  echo=TRUE, eval=FALSE}    
+address2 <- address %>%
+      mutate(postal = sub("^([0-9]+) .*", "\\1", Address),
+             street = sub("^([0-9]+) (.*)", "\\2", Address))
+```
+- Note: \\\\1 indicates return first match and \\\\2 indicates return second match
 
 ## Reference
 
@@ -270,3 +301,9 @@ https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf
 1. Extract the first two character of the variable Statute and save it to a new variable, "statute_type"
 2. Extract all the numerical value in Statue (not in parentheses) and save it to a new variable, "statue_code"
 3. Extract all values in parenthese under Statute and save it to a new variable, "statute_sub_code"
+
+### Address
+1. Clean "street" variable in address2 
+    a. remove Suites/Apt
+    b. remove commas
+2. Create variable with only Suite/Apt numbers

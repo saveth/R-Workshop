@@ -55,7 +55,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <p class="author">
 Savet Hong
   </p>
-  <p class="date">Jul 27, 2018</p>
+  <p class="date">Jul 30, 2018</p>
 </div>
 <div id="regular-expression" class="slide section level2">
 <h2>Regular Expression</h2>
@@ -218,8 +218,8 @@ courtb_p1<span class="op">$</span><span class="st">`</span><span class="dt">Case
 <div id="non-literal-pattern" class="slide section level2">
 <h2>Non-literal Pattern</h2>
 <ul class="incremental">
-<li><strong>Characters:</strong> [a-z], [A-Z], [A-z]</li>
-<li><strong>Numbers:</strong> [0-9]</li>
+<li><strong>Characters:</strong> [a-z], [A-Z], [A-z], [[:alpha:]]</li>
+<li><strong>Numbers:</strong> [0-9], [[:digit:]]</li>
 <li><strong>Punctuation:</strong> [[:punct:]]</li>
 </ul>
 </div>
@@ -250,7 +250,8 @@ folks[<span class="kw">grep</span>(<span class="st">&quot;[0-9]&quot;</span>, fo
 . any character<br />
 * match at least 0<br />
 + match at least 1<br />
-? match at most 1 time</p>
+? match at most 1 time<br />
+() grouping</p>
 </div>
 <div id="anchor-symbols" class="slide section level2">
 <h2>Anchor Symbols</h2>
@@ -261,14 +262,65 @@ $ end of the string<br />
 <div id="example-special-symbols" class="slide section level2">
 <h2>Example: Special Symbols</h2>
 <ul class="incremental">
-<li>use regex</li>
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">address &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;../data/MockData.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;Address&quot;</span>)    </code></pre></div></li>
+<li>Use numerical pattern and anchors to identify elements containing:
+<ul class="incremental">
+<li>postal code</li>
+<li>suites</li>
+</ul></li>
+<li>Use character pattern to identify elements containing:
+<ul class="incremental">
+<li>street names</li>
+</ul></li>
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Identify elements that starts with numerics</span>
+<span class="kw">grepl</span>(<span class="st">&quot;^[0-9]&quot;</span>, address<span class="op">$</span>Address)
+
+<span class="co"># Identify elements that ends with numerics    </span>
+<span class="kw">grepl</span>(<span class="st">&quot;[0-9]$&quot;</span>, address<span class="op">$</span>Address)
+
+<span class="co"># Identify elements that contains character</span>
+<span class="kw">grepl</span>(<span class="st">&quot;[Z-a]&quot;</span>, address<span class="op">$</span>Address)</code></pre></div></li>
 </ul>
 </div>
-<div id="example-4-replacement" class="slide section level2">
-<h2>Example 4: Replacement</h2>
+<div id="replacement" class="slide section level2">
+<h2>Replacement</h2>
+</div>
+<div id="use-sub-or-gsub-functions" class="slide section level2">
+<h2>Use <em>sub()</em> or <em>gsub()</em> functions</h2>
 <ul class="incremental">
-<li>sub</li>
-<li>gsub</li>
+<li>fuction format
+<ul class="incremental">
+<li><strong>sub(pattern, replacement, x):</strong></li>
+<li><strong>gsub(pattern, replacement, x):</strong></li>
+</ul></li>
+<li>function require
+<ul class="incremental">
+<li>pattern to search for</li>
+<li>character to replace match</li>
+<li>the character (string) vector within which to perform the search</li>
+</ul></li>
+<li>funtion output
+<ul class="incremental">
+<li><strong>sub():</strong> replace first match in each element of vector, x, that matches the pattern</li>
+<li><strong>gsub():</strong> replace all match in each element of vector, x, that matches the pattern</li>
+</ul></li>
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">folks
+<span class="kw">sub</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;BA&quot;</span>, folks)
+<span class="kw">gsub</span>(<span class="st">&quot;l&quot;</span>, <span class="st">&quot;BA&quot;</span>, folks)</code></pre></div></li>
+</ul>
+</div>
+<div id="example-replacement" class="slide section level2">
+<h2>Example: Replacement</h2>
+<ul class="incremental">
+<li>Extract and save into new variables:
+<ul class="incremental">
+<li>postal address</li>
+<li>street name</li>
+</ul></li>
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">address2 &lt;-<span class="st"> </span>address <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">postal =</span> <span class="kw">sub</span>(<span class="st">&quot;^([0-9]+) .*&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, Address),
+         <span class="dt">street =</span> <span class="kw">sub</span>(<span class="st">&quot;^([0-9]+) (.*)&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">2&quot;</span>, Address))</code></pre></div></li>
+<li>Note: \\1 indicates return first match and \\2 indicates return second match</li>
 </ul>
 </div>
 <div id="reference" class="slide section level2">
@@ -286,6 +338,30 @@ $ end of the string<br />
 <li>Extract by position</li>
 <li>Replace by position</li>
 </ul>
+</div>
+<div id="exercises" class="slide section level2">
+<h2>Exercises</h2>
+<h3 id="courta-filing-data">CourtA-Filing Data</h3>
+<ol class="incremental" style="list-style-type: decimal">
+<li>Index the Case Type that contains the word “Mental”</li>
+<li>Identify and extract Case Type that contains punctuations</li>
+<li>Create a subset dataframe with columns containing numbers in the variable name</li>
+</ol>
+<h3 id="bail-data">Bail Data</h3>
+<ol class="incremental" style="list-style-type: decimal">
+<li>Extract the first two character of the variable Statute and save it to a new variable, “statute_type”</li>
+<li>Extract all the numerical value in Statue (not in parentheses) and save it to a new variable, “statue_code”</li>
+<li>Extract all values in parenthese under Statute and save it to a new variable, “statute_sub_code”</li>
+</ol>
+<h3 id="address">Address</h3>
+<ol class="incremental" style="list-style-type: decimal">
+<li>Clean “street” variable in address2
+<ol class="incremental" style="list-style-type: lower-alpha">
+<li>remove Suites/Apt</li>
+<li>remove commas</li>
+</ol></li>
+<li>Create variable with only Suite/Apt numbers</li>
+</ol>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->
