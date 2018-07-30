@@ -1,0 +1,61 @@
+---
+title: "Data Wrangling Part 4:"
+subtitle: "Strings: Exercise Solution"
+author: "Savet Hong"
+date: "`r format(Sys.Date(), '%b %d, %Y')`"
+output:
+  slidy_presentation:
+      incremental: true
+---
+  
+
+## Exercises
+## CourtA-Filing Data
+1. Index the Case Type that contains the word "Mental" 
+2. Identify and extract Case Type that contains punctuations
+3. Create a subset dataframe with columns containing numbers in the variable name
+
+## 
+```{r, echo=TRUE, eval=FALSE}
+library(tidyverse)
+library(readxl)
+
+filing <- read_excel("../data/MockData.xlsx", sheet = "CourtA-Filing", skip = 1)
+
+# Index Casetype with "Mental"
+grep("Mental", filing$`Case Type`)
+
+# Extract Casetype with punctuations
+filing$`Case Type`[grep("[[:punct:]]", filing$`Case Type`)]
+
+# Subset dataframe with columns contain numbers
+filing_sub <- filing[grep("[0-9]", names(filing))]
+
+```
+
+
+## Bail Data
+1. Extract the first two character of the variable Statute and save it to a new variable, "statute_type"
+2. Extract all the numerical value in Statue (not in parentheses) and save it to a new variable, "statue_code"
+3. Extract all values in parenthese under Statute and save it to a new variable, "statute_sub_code"
+
+```{r, echo=TRUE, eval=FALSE}
+
+```
+
+## Address
+1. Clean "street" variable in address2 
+    a. remove Suites/Apt
+    b. remove commas
+2. Create variable with only Suite/Apt numbers
+- 
+    ```{r,  echo=TRUE, eval=FALSE} 
+address <- read_excel("../data/MockData.xlsx", sheet = "Address")       
+address2 <- address %>%
+      mutate(postal = sub("^([0-9]+) .*", "\\1", Address),
+             street = sub("^([0-9]+) (.*)", "\\2", Address),
+             street = sub(",","", Address),
+             Suite = gsub("[[:alpha:]]","", Address),
+             Suite = sub("^([0-9]+) ", "", Suite),
+             Suite = gsub("\\s|[[:punct:]]", "", Suite))
+```
