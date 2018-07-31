@@ -1,0 +1,43 @@
+---
+title: "Sharing Code/Analysis"
+subtitle: "Rmarkdown"
+author: "Savet Hong"
+date: "`r format(Sys.Date(), '%b %d, %Y')`"
+output:
+  slidy_presentation:
+  incremental: true
+---
+  
+## What is Rmarkdown?
+- Create:
+    + presentation
+    + dashboards
+    + notebook
+- Output format:
+    + html
+    + Word
+    + pdf
+    
+- Note: PDF format requires the installation of LaTeX     
+
+## Installation
+
+
+
+## Create an Rmarkdown document
+
+
+## Knit
+
+## Save with .Rmd extension
+
+
+## Reference
+
+- Rmarkdown Tutorial    
+https://rmarkdown.rstudio.com/lesson-1.html
+
+- Rmarkdown Cheatsheet
+https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf
+
+## Concepts to be covered
