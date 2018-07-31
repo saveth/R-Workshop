@@ -7,10 +7,6 @@ output:
   slidy_presentation:
       incremental: true
 ---
-  
-```{r, include=FALSE}
-
-```
 
 ## Regular Expression
 - What is it?

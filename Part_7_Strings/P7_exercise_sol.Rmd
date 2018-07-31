@@ -39,8 +39,14 @@ filing_sub <- filing[grep("[0-9]", names(filing))]
 2. Extract all the numerical value in Statue (not in parentheses) and save it to a new variable, "statue_code"
 3. Extract all values in parenthese under Statute and save it to a new variable, "statute_sub_code"
 
+## 
 ```{r, echo=TRUE, eval=FALSE}
+bail <- read_excel("../data/MockData.xlsx", sheet = "Bail", na = "NA")
 
+bail_clean <- bail %>%
+  mutate(statute_type = substr(Statute, 1,2),
+         statute_code = sub("^([A-Z]+)([0-9]+).*", "\\2", Statute),
+         statute_sub_code = sub("^([A-Z]+)([0-9]+)", "", Statute))
 ```
 
 ## Address
@@ -48,8 +54,9 @@ filing_sub <- filing[grep("[0-9]", names(filing))]
     a. remove Suites/Apt
     b. remove commas
 2. Create variable with only Suite/Apt numbers
-- 
-    ```{r,  echo=TRUE, eval=FALSE} 
+
+## 
+```{r,  echo=TRUE, eval=FALSE} 
 address <- read_excel("../data/MockData.xlsx", sheet = "Address")       
 address2 <- address %>%
       mutate(postal = sub("^([0-9]+) .*", "\\1", Address),

@@ -55,7 +55,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <p class="author">
 Savet Hong
   </p>
-  <p class="date">Jul 30, 2018</p>
+  <p class="date">Jul 31, 2018</p>
 </div>
 <div id="exercises" class="slide section level2">
 <h2>Exercises</h2>
@@ -92,6 +92,15 @@ filing_sub &lt;-<span class="st"> </span>filing[<span class="kw">grep</span>(<sp
 <li>Extract all values in parenthese under Statute and save it to a new variable, “statute_sub_code”</li>
 </ol>
 </div>
+<div id="section-1" class="slide section level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bail &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;../data/MockData.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;Bail&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;NA&quot;</span>)
+
+bail_clean &lt;-<span class="st"> </span>bail <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">statute_type =</span> <span class="kw">substr</span>(Statute, <span class="dv">1</span>,<span class="dv">2</span>),
+         <span class="dt">statute_code =</span> <span class="kw">sub</span>(<span class="st">&quot;^([A-Z]+)([0-9]+).*&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">2&quot;</span>, Statute),
+         <span class="dt">statute_sub_code =</span> <span class="kw">sub</span>(<span class="st">&quot;^([A-Z]+)([0-9]+)&quot;</span>, <span class="st">&quot;&quot;</span>, Statute))</code></pre></div>
+</div>
 <div id="address" class="slide section level2">
 <h2>Address</h2>
 <ol class="incremental" style="list-style-type: decimal">
@@ -102,16 +111,17 @@ filing_sub &lt;-<span class="st"> </span>filing[<span class="kw">grep</span>(<sp
 </ol></li>
 <li>Create variable with only Suite/Apt numbers</li>
 </ol>
-<ul class="incremental">
-<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">address &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;../data/MockData.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;Address&quot;</span>)       
+</div>
+<div id="section-2" class="slide section level2">
+<h2></h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">address &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;../data/MockData.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;Address&quot;</span>)       
 address2 &lt;-<span class="st"> </span>address <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">postal =</span> <span class="kw">sub</span>(<span class="st">&quot;^([0-9]+) .*&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, Address),
-         <span class="dt">street =</span> <span class="kw">sub</span>(<span class="st">&quot;^([0-9]+) (.*)&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">2&quot;</span>, Address),
-         <span class="dt">street =</span> <span class="kw">sub</span>(<span class="st">&quot;,&quot;</span>,<span class="st">&quot;&quot;</span>, Address),
-         <span class="dt">Suite =</span> <span class="kw">gsub</span>(<span class="st">&quot;[[:alpha:]]&quot;</span>,<span class="st">&quot;&quot;</span>, Address),
-         <span class="dt">Suite =</span> <span class="kw">sub</span>(<span class="st">&quot;^([0-9]+) &quot;</span>, <span class="st">&quot;&quot;</span>, Suite),
-         <span class="dt">Suite =</span> <span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">s|[[:punct:]]&quot;</span>, <span class="st">&quot;&quot;</span>, Suite))</code></pre></div></li>
-</ul>
+<span class="st">      </span><span class="kw">mutate</span>(<span class="dt">postal =</span> <span class="kw">sub</span>(<span class="st">&quot;^([0-9]+) .*&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, Address),
+             <span class="dt">street =</span> <span class="kw">sub</span>(<span class="st">&quot;^([0-9]+) (.*)&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">2&quot;</span>, Address),
+             <span class="dt">street =</span> <span class="kw">sub</span>(<span class="st">&quot;,&quot;</span>,<span class="st">&quot;&quot;</span>, Address),
+             <span class="dt">Suite =</span> <span class="kw">gsub</span>(<span class="st">&quot;[[:alpha:]]&quot;</span>,<span class="st">&quot;&quot;</span>, Address),
+             <span class="dt">Suite =</span> <span class="kw">sub</span>(<span class="st">&quot;^([0-9]+) &quot;</span>, <span class="st">&quot;&quot;</span>, Suite),
+             <span class="dt">Suite =</span> <span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">s|[[:punct:]]&quot;</span>, <span class="st">&quot;&quot;</span>, Suite))</code></pre></div>
 </div>
 
   <!-- dynamically load mathjax for compatibility with self-contained -->
