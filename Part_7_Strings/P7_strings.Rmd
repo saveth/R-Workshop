@@ -1,6 +1,6 @@
 ---
 title: "Data Wrangling Part 4:"
-subtitle: "Strings"
+subtitle: "Regular Expression (strings)"
 author: "Savet Hong"
 date: "`r format(Sys.Date(), '%b %d, %Y')`"
 output:
