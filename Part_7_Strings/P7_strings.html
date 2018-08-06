@@ -55,7 +55,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <p class="author">
 Savet Hong
   </p>
-  <p class="date">Aug 02, 2018</p>
+  <p class="date">Aug 03, 2018</p>
 </div>
 <div id="regular-expression" class="slide section level2">
 <h2>Regular Expression</h2>
@@ -207,7 +207,7 @@ filing[<span class="kw">grep</span>(<span class="st">&quot;-&quot;</span>, <span
 </ul></li>
 <li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;B|M&quot;</span>, folks)
 folks[<span class="kw">grep</span>(<span class="st">&quot;B|M&quot;</span>, folks)]    </code></pre></div></li>
-<li>In the dataframe, courtb_1, identify:
+<li>In the dataframe, courtb_p1, identify:
 <ul class="incremental">
 <li>which casetype contains the word Civil or Criminal?</li>
 </ul></li>
@@ -257,7 +257,7 @@ folks[<span class="kw">grep</span>(<span class="st">&quot;[0-9]&quot;</span>, fo
 <h2>Anchor Symbols</h2>
 <p>^ start of the string<br />
 $ end of the string<br />
-\b empty string at either end of the word</p>
+\\b empty string at either end of the word</p>
 </div>
 <div id="example-special-symbols" class="slide section level2">
 <h2>Example: Special Symbols</h2>
@@ -265,7 +265,7 @@ $ end of the string<br />
 <li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">address &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;../data/MockData.xlsx&quot;</span>, <span class="dt">sheet =</span> <span class="st">&quot;Address&quot;</span>)    </code></pre></div></li>
 <li>Use numerical pattern and anchors to identify elements containing:
 <ul class="incremental">
-<li>postal code</li>
+<li>street numbers</li>
 <li>suites</li>
 </ul></li>
 <li>Use character pattern to identify elements containing:
@@ -314,13 +314,17 @@ $ end of the string<br />
 <ul class="incremental">
 <li>Extract and save into new variables:
 <ul class="incremental">
-<li>postal address</li>
+<li>street address (number)</li>
 <li>street name</li>
 </ul></li>
 <li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">address2 &lt;-<span class="st"> </span>address <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">postal =</span> <span class="kw">sub</span>(<span class="st">&quot;^([0-9]+) .*&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, Address),
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">street_num =</span> <span class="kw">gsub</span>(<span class="st">&quot;[A-z]&quot;</span>, <span class="st">&quot;&quot;</span>, Address),
+         <span class="dt">street =</span> <span class="kw">gsub</span>(<span class="st">&quot;[0-9]&quot;</span>, <span class="st">&quot;&quot;</span>, Address))</code></pre></div></li>
+<li><p>Notice, that additional cleaning would be needed.</p></li>
+<li><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">address2 &lt;-<span class="st"> </span>address <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">street_num =</span> <span class="kw">sub</span>(<span class="st">&quot;^([0-9]+) .*&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">1&quot;</span>, Address),
          <span class="dt">street =</span> <span class="kw">sub</span>(<span class="st">&quot;^([0-9]+) (.*)&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">2&quot;</span>, Address))</code></pre></div></li>
-<li>Note: \\1 indicates return first match and \\2 indicates return second match</li>
+<li><p>Note: \\1 indicates return first match and \\2 indicates return second match</p></li>
 </ul>
 </div>
 <div id="reference" class="slide section level2">
