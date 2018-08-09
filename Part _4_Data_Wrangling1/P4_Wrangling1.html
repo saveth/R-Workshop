@@ -55,7 +55,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   <p class="author">
 Savet Hong
   </p>
-  <p class="date">Jun 12, 2018</p>
+  <p class="date">Aug 09, 2018</p>
 </div>
 <div id="changing-the-data" class="slide section level2">
 <h2>Changing the Data</h2>
@@ -73,15 +73,20 @@ nums_fact &lt;-<span class="st"> </span><span class="kw">factor</span>(nums_fact
 <li>Dplyr (a package within Tidyverse) Common Concepts
 <ul class="incremental">
 <li>mutate: transformation/creation of variable</li>
-<li>summarise: calculation typically performed on grouped data</li>
 <li>select: subsetting columns (select specific columns or remove columns)</li>
 <li>filter: subsetting rows (select specific rows or remove rows)</li>
 <li>group: associating variables/calculation by classification defined by one or more variables</li>
+<li>summarise: calculation typically performed on grouped data</li>
 </ul></li>
 <li>Dplyr functions follows the format
 <ul class="incremental">
+<li>direct use of function:
+<ul class="incremental">
 <li>function(data, operation…)</li>
-<li>chaining requires data %&gt;% function(operation…)</li>
+</ul></li>
+<li>chaining with the pipe: %&gt;%<br />
+data %&gt;%<br />
+function(operation…)</li>
 </ul></li>
 <li>Tidyr (a package within Tidyverse) Common Concepts
 <ul class="incremental">
@@ -109,11 +114,12 @@ drinks &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span cl
 <h2>Example 1</h2>
 <ul class="incremental">
 <li><p>Create another variable calculating the sum of total serving of alcohol consumed</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Option 1: R built-in fuctions    </span>
-drinks<span class="op">$</span>total_serving =<span class="st"> </span><span class="kw">apply</span>(drinks[,<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">1</span>, sum)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Option 1: R built-in fuctions </span>
+drinks2 &lt;-<span class="st"> </span>drinks    
+drinks2<span class="op">$</span>total_serving &lt;-<span class="st"> </span><span class="kw">apply</span>(drinks2[,<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">1</span>, sum)
 
 <span class="co"># Option 2: Dplyr    </span>
-drinks &lt;-<span class="st"> </span>drinks <span class="op">%&gt;%</span>
+drinks2 &lt;-<span class="st"> </span>drinks <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total_serving =</span> <span class="kw">rowSums</span>(.[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>]))</code></pre></div></li>
 </ul>
 </div>
@@ -122,7 +128,7 @@ drinks &lt;-<span class="st"> </span>drinks <span class="op">%&gt;%</span>
 <ul class="incremental">
 <li><p>Find the total alcohol consumption for each category.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Option 1: R built-in fuctions    </span>
-total_serving =<span class="st"> </span><span class="kw">apply</span>(drinks[,<span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(drinks)], <span class="dv">2</span>, sum)
+total_serving &lt;-<span class="st"> </span><span class="kw">apply</span>(drinks[,<span class="dv">2</span><span class="op">:</span><span class="kw">ncol</span>(drinks)], <span class="dv">2</span>, sum)
 
 <span class="co"># Option 2: Dplyr    </span>
  drinks <span class="op">%&gt;%</span>

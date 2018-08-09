@@ -30,16 +30,18 @@ nums_fact <- factor(nums_fact)
 
 - Dplyr (a package within Tidyverse) Common Concepts 
     + mutate: transformation/creation of variable
-    + summarise: calculation typically performed on grouped data
     + select: subsetting columns (select specific columns or remove columns)
     + filter: subsetting rows (select specific rows or remove rows)
     + group: associating variables/calculation by classification defined by one or more variables
+    + summarise: calculation typically performed on grouped data
+
 
 - Dplyr functions follows the format
-    + function(data, operation...)
-    + chaining requires 
-    data %>%
-    function(operation...)
+    + direct use of function:
+        - function(data, operation...)
+    + chaining with the pipe: %>%  
+        data %>%  
+        function(operation...)
 
 - Tidyr (a package within Tidyverse) Common Concepts 
     + gather: reshape from wide to long
@@ -66,11 +68,12 @@ drinks <- read_excel("../data/drinks_USbirths.xlsx", sheet = "drinks", skip = 2)
 
     ```{r serving, echo=TRUE, eval=FALSE}
 
-# Option 1: R built-in fuctions    
-drinks$total_serving = apply(drinks[,2:4], 1, sum)
+# Option 1: R built-in fuctions 
+drinks2 <- drinks    
+drinks2$total_serving <- apply(drinks2[,2:4], 1, sum)
 
 # Option 2: Dplyr    
-drinks <- drinks %>%
+drinks2 <- drinks %>%
   mutate(total_serving = rowSums(.[2:4]))
         
 ```
@@ -80,7 +83,7 @@ drinks <- drinks %>%
     ```{r serving_total, echo=TRUE, eval=FALSE}
 
 # Option 1: R built-in fuctions    
-total_serving = apply(drinks[,2:ncol(drinks)], 2, sum)
+total_serving <- apply(drinks[,2:ncol(drinks)], 2, sum)
 
 # Option 2: Dplyr    
  drinks %>%
