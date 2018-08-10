@@ -17,22 +17,22 @@ output:
 ```    
 
 ## Why create graphs?
-    + comprehension
-    + understanding
-    + analysis
+- comprehension
+- understanding
+- analysis
     
 ## What packages are available?
-    + base
-    + ggplot
-    + choroplethr
-    + many more packages available depending on need
+- base
+- ggplot
+- choroplethr
+- many more packages available depending on need
     
 ## Types of Graphs
-    + line graph
-    + scatter plots
-    + bar charts
-    + boxplot
-    + maps
+- scatter plots
+- line graph
+- bar charts
+- boxplot
+- maps
 
 ## Base package: use *plot()* functions
 - fuction format
@@ -62,14 +62,14 @@ folks <- c("Jane","John","Barry","Bill","Mill","Tom", "Team123")
         - labels for the plot
         - other features
  
- ## Example: Base hist
+## Example: Base hist
 
 - 
     ```{r, echo=TRUE, eval=FALSE}
    
 ```
 
- ## Example: Base boxplot
+## Example: Base boxplot
 
 - 
     ```{r, echo=TRUE, eval=FALSE}
@@ -77,6 +77,7 @@ folks <- c("Jane","John","Barry","Bill","Mill","Tom", "Team123")
 ```
         
 ## ggplot package: use *ggplot()* functions
+
 - fuction format
     + **ggplot(data, aes(x,y), ...) +**  geom type, which could be:
       **geom_point()**  
@@ -89,14 +90,14 @@ folks <- c("Jane","John","Barry","Bill","Mill","Tom", "Team123")
     + **y:** variable within data to be used for location of points on the y-axis
     + **...** optional
 
- ## Example: ggplot points
+## Example: ggplot points
 
 - 
     ```{r, echo=TRUE, eval=FALSE}
    
 ```    
 
- ## Example: ggplot line
+## Example: ggplot line
 
 - 
     ```{r, echo=TRUE, eval=FALSE}
@@ -104,7 +105,7 @@ folks <- c("Jane","John","Barry","Bill","Mill","Tom", "Team123")
 ```
 
 
- ## Example: ggplot boxplot
+## Example: ggplot boxplot
 
 - 
     ```{r, echo=TRUE, eval=FALSE}
@@ -112,7 +113,7 @@ folks <- c("Jane","John","Barry","Bill","Mill","Tom", "Team123")
 ```
 
 
- ## Example: ggplot category
+## Example: ggplot category
 
 - 
     ```{r, echo=TRUE, eval=FALSE}
@@ -135,9 +136,11 @@ folks <- c("Jane","John","Barry","Bill","Mill","Tom", "Team123")
 
 - ggplot
 
--choroplethr
+- choroplethr
+
 
 ## Concepts covered
+
 -
 
 ## Exercises
