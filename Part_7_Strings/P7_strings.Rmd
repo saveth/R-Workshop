@@ -288,7 +288,7 @@ address2 <- address %>%
 https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf
 
 
-## Concepts to be covered
+## Concepts covered
 - Character Class
 - Locate character match
 - Extract by position
