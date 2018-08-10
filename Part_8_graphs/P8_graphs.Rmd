@@ -1,0 +1,144 @@
+---
+title: "Visualize Your Data"
+subtitle: "Graphs"
+author: "Savet Hong"
+date: "`r format(Sys.Date(), '%b %d, %Y')`"
+output:
+  slidy_presentation:
+  incremental: true
+---
+  
+```{r ex1_msg, echo =TRUE, eval = FALSE, include=FALSE}
+## This part of the workshop may require 3 sessions to cover all materials
+## Intro + base package:
+## ggplot:
+## choroplethr: 
+
+```    
+
+## Why create graphs?
+    + comprehension
+    + understanding
+    + analysis
+    
+## What packages are available?
+    + base
+    + ggplot
+    + choroplethr
+    + many more packages available depending on need
+    
+## Types of Graphs
+    + line graph
+    + scatter plots
+    + bar charts
+    + boxplot
+    + maps
+
+## Base package: use *plot()* functions
+- fuction format
+    + **plot(x, y, ...):**
+- function require
+    + **x:** location of points on the x-axis
+    + **y:** location of points on the y-axis
+    + **...** optional arguments that can be added to the graph, can include:  
+        - plot type (ling, point,steps, etc.)
+        - labels for the plot
+        - other features
+
+## Example: Base line plot
+
+- 
+    ```{r, echo=TRUE, eval=FALSE}
+folks <- c("Jane","John","Barry","Bill","Mill","Tom", "Team123")    
+```
+
+## base package: use *hist()* functions
+- fuction format
+    + **hist(x, ...):**
+- function require
+    + **x:** location of points on the x-axis
+    + **...** optional arguments that can be added to the graph, can include:  
+        - plot type (ling, point,steps, etc.)
+        - labels for the plot
+        - other features
+ 
+ ## Example: Base hist
+
+- 
+    ```{r, echo=TRUE, eval=FALSE}
+   
+```
+
+ ## Example: Base boxplot
+
+- 
+    ```{r, echo=TRUE, eval=FALSE}
+   
+```
+        
+## ggplot package: use *ggplot()* functions
+- fuction format
+    + **ggplot(data, aes(x,y), ...) +**  geom type, which could be:
+      **geom_point()**  
+      **geom_hist()**
+      **geom_line**  
+       and plot type
+- function require
+    + **data** dataframe to be used
+    + **x:** variable within data to be used for location of points on the x-axis
+    + **y:** variable within data to be used for location of points on the y-axis
+    + **...** optional
+
+ ## Example: ggplot points
+
+- 
+    ```{r, echo=TRUE, eval=FALSE}
+   
+```    
+
+ ## Example: ggplot line
+
+- 
+    ```{r, echo=TRUE, eval=FALSE}
+   
+```
+
+
+ ## Example: ggplot boxplot
+
+- 
+    ```{r, echo=TRUE, eval=FALSE}
+   
+```
+
+
+ ## Example: ggplot category
+
+- 
+    ```{r, echo=TRUE, eval=FALSE}
+   
+```
+
+## Choroplethr package: use *county_choropleth()* functions
+- fuction format
+    + **county_choropleth(data, ...):**
+- function require
+    + **region:**  geographical location to be mapped
+    + **value:** the values to plotted (continuous or categorical) 
+    + **...** optional arguments that can be added to the graph, can include:  
+        - state_zoom
+        - title
+        
+## Reference
+
+- Base R
+
+- ggplot
+
+-choroplethr
+
+## Concepts covered
+-
+
+## Exercises
+
